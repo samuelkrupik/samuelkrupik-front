@@ -1,30 +1,16 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="bg-blurred min-h-screen">
+    <div
+      class="w-full px-6 sm:px-10 md:max-w-screen-2xl md:mx-auto lg:max-w-5xl xl:max-w-screen-lg 2xl:max-w-screen-xl"
+    >
+      <router-view />
+    </div>
   </div>
-  <router-view />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style lang="css">
+.bg-blurred {
+  background-size: cover;
+  background: url("../src/assets/img/bg-desktop.svg") fixed center;
 }
 </style>

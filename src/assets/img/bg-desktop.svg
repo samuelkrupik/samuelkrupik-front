@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.475" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#7acaf3"/>
+      <stop offset="1" stop-color="#30a2de" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-4" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#967af3"/>
+      <stop offset="1" stop-color="#967af3" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip-Web_1920_2">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="Web_1920_2" data-name="Web 1920 – 2" clip-path="url(#clip-Web_1920_2)">
+    <g id="BG">
+      <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="369" cy="369.5" rx="369" ry="369.5" transform="translate(-269 171)" fill="url(#radial-gradient)"/>
+      <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="369" cy="369.5" rx="369" ry="369.5" transform="translate(983 -152)" fill="url(#radial-gradient)"/>
+      <ellipse id="Ellipse_13" data-name="Ellipse 13" cx="369" cy="369.5" rx="369" ry="369.5" transform="translate(1375 587)" fill="url(#radial-gradient)"/>
+      <circle id="Ellipse_2" data-name="Ellipse 2" cx="355.5" cy="355.5" r="355.5" transform="translate(192 654)" fill="url(#radial-gradient-4)"/>
+      <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="844.5" cy="829" rx="844.5" ry="829" transform="translate(1528 -1130)" fill="url(#radial-gradient-4)"/>
+      <rect width="1920" height="1080" fill="#fff"  opacity="0.7"/>
+    </g>
+  </g>
+</svg>
