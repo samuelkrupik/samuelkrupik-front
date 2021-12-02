@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "ButtonPrimary",
+  name: "CCard",
   props: {
     heading: {
       type: String,
