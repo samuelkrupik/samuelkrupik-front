@@ -1,12 +1,16 @@
 <template>
   <div
-    class="flex flex-col items-center bg-white rounded-xl shadow-xl w-72 px-8 py-10 text-center bg-opacity-60"
+    class="bg-white bg-opacity-40 flex flex-col items-center rounded-xl w-full px-8 py-12 text-center sm:shadow-none"
   >
-    <div class="h-32 flex justify-center">
-      <img :src="require(`@/assets/img/${imgName}`)" alt="" class="h-full" />
+    <div class="h-32 md:h-36 flex justify-center">
+      <img
+        :src="require(`@/assets/img/cards/${imgName}`)"
+        alt=""
+        class="h-full"
+      />
     </div>
     <h2 class="text-dark font-bold text-2xl mb-2">{{ heading }}</h2>
-    <p class="text-mid font-semibold">
+    <p class="text-mid font-semibold w-3/4 sm:w-full flex-grow">
       <slot></slot>
     </p>
     <a :href="link" class="button-secondary mt-4">{{ linkText }}</a>

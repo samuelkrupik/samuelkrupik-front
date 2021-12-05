@@ -1,10 +1,10 @@
 <template>
-  <div class="relative z-10 md:hidden">
+  <div class="relative z-20 lg:hidden">
     <svg
       @click="open"
       v-show="!visible"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 transform md:hidden"
+      class="h-6 w-6 transform"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -20,7 +20,7 @@
       @click="close"
       v-show="visible"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 transform md:hidden"
+      class="h-6 w-6 transform"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -35,7 +35,7 @@
   </div>
   <div
     v-show="visible"
-    class="absolute z-5 w-full h-screen top-0 left-0 bg-white bg-opacity-95 flex items-center justify-center md:hidden"
+    class="absolute z-10 w-full h-screen top-0 left-0 bg-white bg-opacity-95 flex items-center justify-center lg:hidden"
   >
     <div class="flex flex-col space-y-2 text-center">
       <a

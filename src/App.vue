@@ -6,7 +6,10 @@
 
 <style lang="css">
 .bg-blurred {
+  background: url("../src/assets/img/bg/blurred.svg");
   background-size: cover;
-  background: url("../src/assets/img/bg-desktop.svg") fixed center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style>
