@@ -11,15 +11,23 @@
      * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
     */
     .button-primary {
-        @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
+        @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
     }
 
     .button-secondary {
-        @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
+        @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
     }
 
     .section {
         @apply max-w-7xl mx-auto px-6 lg:px-10;
+    }
+
+    .heading {
+        @apply font-heading text-4xl xs:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-dark;
+    }
+
+    .content-text {
+        @apply text-dark font-semibold;
     }
 
     .link {
@@ -28,6 +36,10 @@
 
     .social-icon {
         @apply relative z-0 p-3 rounded-2xl shadow-lg max-w-max hover:shadow-xl transform hover:scale-105 transition-all;
+    }
+
+    .input {
+        @apply px-4 py-3 rounded-lg shadow-xl border border-gray-100;
     }
 
     .nav-link {
