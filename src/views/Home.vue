@@ -295,6 +295,10 @@ export default {
           title: "Projekty",
           to: "#projects",
         },
+        {
+          title: "Kontakt",
+          to: "#contact",
+        },
       ],
       swiper: {
         breakpoints: {
