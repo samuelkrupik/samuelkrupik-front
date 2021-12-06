@@ -243,9 +243,12 @@
               <span class="link">+421 950 229 659</span>
             </a>
           </div>
-          <a href="#" class="button-primary block mt-8">
+          <router-link
+            to="/kontakny-formular"
+            class="button-primary block mt-8"
+          >
             Prejsť na kontaktný formulár
-          </a>
+          </router-link>
         </div>
       </div>
     </section>
@@ -424,19 +427,19 @@ export default {
       links: [
         {
           title: "Domov",
-          href: "#home",
+          to: "#home",
         },
         {
           title: "O mne",
-          href: "#about",
+          to: "#about",
         },
         {
           title: "Služby",
-          href: "#services",
+          to: "#services",
         },
         {
           title: "Projekty",
-          href: "#projects",
+          to: "#projects",
         },
       ],
       swiper: {

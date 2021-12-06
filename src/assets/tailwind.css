@@ -4,26 +4,49 @@
 
 @tailwind utilities;
 
-/**
- * Position relative and z-index 0 assigned because of stacking context
- * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
-*/
-.button-primary {
-    @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
-}
 
-.button-secondary {
-    @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
-}
+@layer components {
+    /**
+     * Position relative and z-index 0 assigned because of stacking context
+     * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+    */
+    .button-primary {
+        @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
+    }
 
-.section {
-    @apply max-w-7xl mx-auto px-6 lg:px-10;
-}
+    .button-secondary {
+        @apply relative z-0 max-w-max px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
+    }
 
-.link {
-    @apply underline font-semibold text-dark;
-}
+    .section {
+        @apply max-w-7xl mx-auto px-6 lg:px-10;
+    }
 
-.social-icon {
-    @apply relative z-0 p-3 rounded-2xl shadow-lg max-w-max hover:shadow-xl transform hover:scale-105 transition-all;
+    .link {
+        @apply underline font-semibold text-dark;
+    }
+
+    .social-icon {
+        @apply relative z-0 p-3 rounded-2xl shadow-lg max-w-max hover:shadow-xl transform hover:scale-105 transition-all;
+    }
+
+    .nav-link {
+        @apply font-semibold text-dark p-2 text-xl lg:text-base relative;
+    }
+
+    .nav-link:after {
+        content: "";
+        @apply absolute bg-primary h-full w-1 rounded lg:w-full lg:h-1 -left-4 lg:left-0 top-0 lg:top-full transform scale-y-75 lg:scale-y-100 lg:-translate-y-full transition-all origin-left scale-x-0;
+    }
+
+    .nav-link:hover:after {
+        content: "";
+        @apply scale-x-100 opacity-100;
+    }
+
+    .nav-link-active:after {
+        content: "";
+        @apply scale-x-100 opacity-80;
+    }
+
 }
