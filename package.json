@@ -11,6 +11,7 @@
     "@heroicons/vue": "^1.0.5",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "autoprefixer": "^9",
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "postcss": "^7",
     "swiper": "^7.3.1",

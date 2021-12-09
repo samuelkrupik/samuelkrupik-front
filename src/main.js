@@ -3,23 +3,21 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
+import api from "./services/api";
+import clickOutside from "./services/click-outside";
+import axios from "axios";
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://samuelkrupik.test:8080";
+axios.defaults.headers["X-Requested-With"] = "XMLHttpRequest";
+
 const VueScrollTo = require("vue-scrollto");
 
-const clickOutside = {
-  beforeMount: (el, binding) => {
-    el.clickOutsideEvent = (event) => {
-      if (!(el == event.target || el.contains(event.target))) {
-        binding.value();
-      }
-    };
-    document.addEventListener("click", el.clickOutsideEvent);
-  },
-  unmounted: (el) => {
-    document.removeEventListener("click", el.clickOutsideEvent);
-  },
-};
+const app = createApp(App);
 
-createApp(App)
+store.dispatch("auth/user");
+
+app.config.globalProperties.$api = api;
+app
   .directive("click-outside", clickOutside)
   .use(VueScrollTo)
   .use(store)

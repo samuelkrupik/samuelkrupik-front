@@ -1,4 +1,3 @@
-import branding from '../assets/img/cards/branding.png';
 <template>
   <div id="projects">
     <section class="section">
@@ -23,6 +22,8 @@ import branding from '../assets/img/cards/branding.png';
           class="flex relative p-1.5 bg-white items-center rounded-xl shadow-xl border border-gray-100 focus-within:ring-2 ring-blue-200"
         >
           <input
+            v-model="searchQuery"
+            @keyup="getProjects"
             type="text"
             class="flex-grow px-3 py-2 appearance-none border-none bg-transparent focus:outline-none lg:text-center"
             placeholder="Vyhľadať projekt..."
@@ -31,7 +32,7 @@ import branding from '../assets/img/cards/branding.png';
             @click="open = !open"
             class="flex lg:hidden items-center bg-gray-100 font-medium rounded-lg py-2 px-3 text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors"
           >
-            <span class="mr-1 select-none">{{ getActiveFilter().title }}</span>
+            <span class="mr-1 select-none">{{ activeTag.title }}</span>
             <chevron-down-icon class="h-5" />
           </div>
           <transition
@@ -46,13 +47,13 @@ import branding from '../assets/img/cards/branding.png';
               class="flex flex-col space-y-1 absolute top-full transform origin-top right-1.5 bg-white shadow-xl rounded-lg border border-gray-200 p-1"
               v-if="open"
             >
-              <template v-for="(filter, index) in filters" :key="index">
+              <template v-for="(tag, index) in tags" :key="index">
                 <div
-                  @click="setFilter(index)"
-                  v-if="index !== activeFilter"
+                  @click="setTag(tag)"
+                  v-if="taf !== activeTag"
                   class="font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
                 >
-                  {{ filter.title }}
+                  {{ tag.name }}
                 </div>
               </template>
             </div>
@@ -62,31 +63,39 @@ import branding from '../assets/img/cards/branding.png';
           />
         </div>
         <div class="hidden lg:flex items-center justify-center mt-4 space-x-3">
-          <template v-for="(filter, index) in filters" :key="index">
+          <template v-for="(tag, index) in tags" :key="index">
             <div
-              @click="setFilter(index)"
+              @click="setTag(tag)"
               :class="{
-                'bg-gray-100 hover:bg-gray-200': index === activeFilter,
+                'bg-gray-100 hover:bg-gray-200': tag === activeTag,
               }"
               class="font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors whitespace-nowrap"
             >
-              {{ filter.title }}
+              {{ tag.name }}
             </div>
           </template>
         </div>
       </div>
       <div class="lg:w-1/3 xl:w-1/4"></div>
     </section>
-    <section
-      class="section grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12"
-    >
-      <template v-for="n in 16" :key="n">
-        <img
-          src="https://source.unsplash.com/random/1920x1440"
-          alt=""
-          class="rounded-xl shadow-xl"
-        />
-      </template>
+    <section class="section">
+      <div
+        class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12"
+      >
+        <template v-for="project in projects" :key="project.id">
+          <c-responsive-image
+            :image="project.images[0]"
+            conversion="preview"
+            loading="lazy"
+            class="w-full rounded-xl shadow-xl"
+          />
+        </template>
+      </div>
+      <div class="mt-12 flex justify-center" v-if="canLoadMore">
+        <a href="#" @click.prevent="loadMore" class="button-secondary"
+          >Načítať viac</a
+        >
+      </div>
     </section>
     <section class="section">
       <c-footer class="pt-24" />
@@ -98,41 +107,45 @@ import branding from '../assets/img/cards/branding.png';
 import CNavigation from "@/components/CNavigation.vue";
 import CFooter from "@/components/CFooter.vue";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/vue/solid";
+import { mapState } from "vuex";
+import CResponsiveImage from "@/components/CResponsiveImage.vue";
 export default {
   components: {
     CNavigation,
     CFooter,
     ChevronDownIcon,
     SearchIcon,
+    CResponsiveImage,
   },
   data() {
     return {
+      searchQuery: "",
       open: false,
-      activeFilter: 0,
-      filters: [
+      activeTag: {},
+      tags: [
         {
-          title: "Všetky",
-          query: "",
+          name: "Všetky",
+          slug: "",
         },
         {
-          title: "3D dizajn",
-          query: "3d_design",
+          name: "3D dizajn",
+          slug: "3d_dizajn",
         },
         {
-          title: "UI/UX",
-          query: "ui_ux",
+          name: "UI/UX",
+          slug: "ui_ux",
         },
         {
-          title: "Tlač",
-          query: "print",
+          name: "Tlač",
+          slug: "tlac",
         },
         {
-          title: "Branding",
-          query: "branding",
+          name: "Branding",
+          slug: "branding",
         },
         {
-          title: "Web",
-          query: "web",
+          name: "Web",
+          slug: "web",
         },
       ],
       links: [
@@ -152,13 +165,39 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState("projects", {
+      projects: (state) => state.projects,
+      canLoadMore: (state) => state.meta.current_page !== state.meta.last_page,
+    }),
+  },
+  created() {
+    this.activeTag = this.tags[0];
+    this.getProjects();
+  },
   methods: {
-    setFilter(filterIndex) {
-      this.activeFilter = filterIndex;
+    getParams() {
+      let params = {
+        tag: this.activeTag.slug,
+        search: this.searchQuery,
+      };
+      for (const key of Object.keys(params)) {
+        if (params[key] === "") {
+          delete params[key];
+        }
+      }
+      return params;
+    },
+    getProjects() {
+      this.$store.dispatch("projects/getProjects", this.getParams());
+    },
+    setTag(tag) {
+      this.activeTag = tag;
+      this.getProjects();
       this.open = false;
     },
-    getActiveFilter() {
-      return this.filters[this.activeFilter];
+    loadMore() {
+      this.$store.dispatch("projects/loadMore", this.getParams());
     },
   },
 };
