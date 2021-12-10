@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <section class="section">
-      <c-navigation :links="links" />
+      <c-navigation />
     </section>
     <section class="section md:flex md:mt-12 flex-row-reverse items-center">
       <div class="px-20 sm:px-32 md:w-1/2 md:px-0 lg:px-8">
@@ -62,23 +62,7 @@ export default {
     CFooter,
   },
   data() {
-    return {
-      links: [
-        {
-          title: "Domov",
-          to: "/",
-        },
-        {
-          title: "Kontakt",
-          to: "/kontakt",
-          active: true,
-        },
-        {
-          title: "Projekty",
-          to: "/projekty",
-        },
-      ],
-    };
+    return {};
   },
   methods: {
     onSubmit() {

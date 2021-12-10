@@ -119,6 +119,20 @@ export default {
   props: {
     links: {
       type: Array,
+      default: () => [
+        {
+          title: "Domov",
+          to: "/",
+        },
+        {
+          title: "Kontakt",
+          to: "/kontakt",
+        },
+        {
+          title: "Projekty",
+          to: "/projekty",
+        },
+      ],
     },
   },
   methods: {

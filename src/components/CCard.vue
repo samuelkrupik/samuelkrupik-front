@@ -13,7 +13,9 @@
     <p class="text-mid font-semibold w-3/4 sm:w-full flex-grow">
       <slot></slot>
     </p>
-    <a :href="link" class="button-secondary mt-4">{{ linkText }}</a>
+    <router-link :to="link" class="button-secondary mt-4">{{
+      linkText
+    }}</router-link>
   </div>
 </template>
 
@@ -30,7 +32,6 @@ export default {
       required: true,
     },
     link: {
-      type: String,
       required: true,
     },
     linkText: {

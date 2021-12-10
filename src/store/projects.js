@@ -32,7 +32,7 @@ export default {
         commit("SET_DATA", []);
       }
     },
-    async loadMore({ state, commit }, params) {
+    async getMoreProjects({ state, commit }, params) {
       if (state.meta.current_page === state.meta.last_page) {
         return;
       }

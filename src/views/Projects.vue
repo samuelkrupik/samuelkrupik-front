@@ -1,7 +1,8 @@
 <template>
   <div id="projects">
+    <c-loader :loading="loading" />
     <section class="section">
-      <c-navigation :links="links" />
+      <c-navigation />
     </section>
     <section class="section pt-12">
       <div
@@ -32,7 +33,7 @@
             @click="open = !open"
             class="flex lg:hidden items-center bg-gray-100 font-medium rounded-lg py-2 px-3 text-gray-700 cursor-pointer hover:bg-gray-200 transition-colors"
           >
-            <span class="mr-1 select-none">{{ activeTag.title }}</span>
+            <span class="mr-1 select-none">{{ activeTag.name }}</span>
             <chevron-down-icon class="h-5" />
           </div>
           <transition
@@ -44,13 +45,13 @@
             leave-active-class="transition-all"
           >
             <div
-              class="flex flex-col space-y-1 absolute top-full transform origin-top right-1.5 bg-white shadow-xl rounded-lg border border-gray-200 p-1"
+              class="flex flex-col space-y-1 absolute z-10 top-full transform origin-top right-1.5 bg-white shadow-xl rounded-lg border border-gray-200 p-1"
               v-if="open"
             >
               <template v-for="(tag, index) in tags" :key="index">
                 <div
-                  @click="setTag(tag)"
-                  v-if="taf !== activeTag"
+                  @click="filterByTag(tag)"
+                  v-if="tag.id !== activeTag.id"
                   class="font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
                 >
                   {{ tag.name }}
@@ -65,9 +66,9 @@
         <div class="hidden lg:flex items-center justify-center mt-4 space-x-3">
           <template v-for="(tag, index) in tags" :key="index">
             <div
-              @click="setTag(tag)"
+              @click="filterByTag(tag)"
               :class="{
-                'bg-gray-100 hover:bg-gray-200': tag === activeTag,
+                'bg-gray-100 hover:bg-gray-200': tag.id === activeTag.id,
               }"
               class="font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors whitespace-nowrap"
             >
@@ -82,17 +83,26 @@
       <div
         class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12"
       >
-        <template v-for="project in projects" :key="project.id">
-          <c-responsive-image
-            :image="project.images[0]"
-            conversion="preview"
-            loading="lazy"
-            class="w-full rounded-xl shadow-xl"
-          />
-        </template>
+        <transition-group
+          enter-active-class="transition-all duration-300"
+          enter-from-class="opacity-0 scale-95"
+          enter-to-class="opacity-100 scale-100"
+          leave-from-class="opacity-100 scale-100"
+          leave-to-class="opacity-0 scale-95"
+          leave-active-class="transition-all duration-300"
+        >
+          <template v-for="project in projects" :key="project.id">
+            <c-responsive-image
+              :image="project.images[0]"
+              conversion="preview"
+              loading="lazy"
+              class="w-full rounded-xl shadow-xl transform"
+            />
+          </template>
+        </transition-group>
       </div>
       <div class="mt-12 flex justify-center" v-if="canLoadMore">
-        <a href="#" @click.prevent="loadMore" class="button-secondary"
+        <a href="#" @click.prevent="getMoreProjects" class="button-secondary"
           >Načítať viac</a
         >
       </div>
@@ -107,8 +117,9 @@
 import CNavigation from "@/components/CNavigation.vue";
 import CFooter from "@/components/CFooter.vue";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/vue/solid";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import CResponsiveImage from "@/components/CResponsiveImage.vue";
+import CLoader from "@/components/CLoader.vue";
 export default {
   components: {
     CNavigation,
@@ -116,53 +127,14 @@ export default {
     ChevronDownIcon,
     SearchIcon,
     CResponsiveImage,
+    CLoader,
   },
   data() {
     return {
+      loading: true,
       searchQuery: "",
       open: false,
       activeTag: {},
-      tags: [
-        {
-          name: "Všetky",
-          slug: "",
-        },
-        {
-          name: "3D dizajn",
-          slug: "3d_dizajn",
-        },
-        {
-          name: "UI/UX",
-          slug: "ui_ux",
-        },
-        {
-          name: "Tlač",
-          slug: "tlac",
-        },
-        {
-          name: "Branding",
-          slug: "branding",
-        },
-        {
-          name: "Web",
-          slug: "web",
-        },
-      ],
-      links: [
-        {
-          title: "Domov",
-          to: "/",
-        },
-        {
-          title: "Kontakt",
-          to: "/kontakt",
-        },
-        {
-          title: "Projekty",
-          to: "/projekty",
-          active: true,
-        },
-      ],
     };
   },
   computed: {
@@ -170,15 +142,26 @@ export default {
       projects: (state) => state.projects,
       canLoadMore: (state) => state.meta.current_page !== state.meta.last_page,
     }),
+    ...mapGetters("tags", ["tags"]),
   },
-  created() {
-    this.activeTag = this.tags[0];
-    this.getProjects();
+  async created() {
+    await this.getTags();
+    console.log("got tags");
+    this.activeTag =
+      this.tags.find((tag) => tag.slug == this.$route.query.tag) ??
+      this.tags[0];
+    this.searchQuery = this.$route.query.s ?? "";
+    await this.getProjects();
+    console.log("got projects");
+    this.loading = false;
   },
   methods: {
+    async getTags() {
+      await this.$store.dispatch("tags/getTags");
+    },
     getParams() {
       let params = {
-        tag: this.activeTag.slug,
+        tag: this.activeTag.slug ?? "",
         search: this.searchQuery,
       };
       for (const key of Object.keys(params)) {
@@ -188,16 +171,26 @@ export default {
       }
       return params;
     },
-    getProjects() {
-      this.$store.dispatch("projects/getProjects", this.getParams());
+    async getProjects() {
+      let query = { tag: this.activeTag.slug };
+      if (this.searchQuery.length > 0) {
+        query.s = this.searchQuery;
+      } else {
+        delete query.s;
+      }
+      this.$router.replace({
+        path: "/projekty",
+        query: { ...query },
+      });
+      await this.$store.dispatch("projects/getProjects", this.getParams());
     },
-    setTag(tag) {
+    async filterByTag(tag) {
+      this.open = false;
       this.activeTag = tag;
       this.getProjects();
-      this.open = false;
     },
-    loadMore() {
-      this.$store.dispatch("projects/loadMore", this.getParams());
+    async getMoreProjects() {
+      await this.$store.dispatch("projects/getMoreProjects", this.getParams());
     },
   },
 };

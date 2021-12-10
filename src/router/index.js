@@ -19,6 +19,7 @@ const routes = [
     name: "Projects",
     component: () =>
       import(/* webpackChunkName: "projects" */ "../views/Projects.vue"),
+    props: (route) => ({ tag: route.query.tag }),
   },
   {
     path: "/login",

@@ -92,7 +92,7 @@
         <c-card
           heading="UI/UX Dizajn"
           img-name="ui_design.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: 'ui_ux' } }"
           link-text="Zobraziť projekty"
         >
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
@@ -101,7 +101,7 @@
         <c-card
           heading="3D Dizajn"
           img-name="3d_design.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: '3d_dizajn' } }"
           link-text="Zobraziť projekty"
         >
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea quis
@@ -110,7 +110,7 @@
         <c-card
           heading="Webstránky"
           img-name="web.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: 'web' } }"
           link-text="Zobraziť projekty"
         >
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi at est
@@ -119,7 +119,7 @@
         <c-card
           heading="Videotvorba"
           img-name="video.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: 'video' } }"
           link-text="Zobraziť projekty"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
@@ -128,7 +128,7 @@
         <c-card
           heading="Branding"
           img-name="branding.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: 'branding' } }"
           link-text="Zobraziť projekty"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque
@@ -137,7 +137,7 @@
         <c-card
           heading="Tlačoviny"
           img-name="print.png"
-          link="#"
+          :link="{ path: '/projekty', query: { tag: 'tlac' } }"
           link-text="Zobraziť projekty"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repell!
