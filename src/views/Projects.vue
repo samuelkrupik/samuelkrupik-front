@@ -4,6 +4,7 @@
     <section class="section">
       <c-navigation />
     </section>
+
     <section class="section pt-12">
       <div
         class="text-center px-6 sm:w-2/3 md:w-1/2 md:px-0 mx-auto lg:mx-0 lg:w-2/5 lg:text-left xl:w-1/3"
@@ -121,6 +122,7 @@ import { mapState, mapGetters } from "vuex";
 import CResponsiveImage from "@/components/CResponsiveImage.vue";
 import CLoader from "@/components/CLoader.vue";
 export default {
+  title: "Projekty",
   components: {
     CNavigation,
     CFooter,
@@ -154,6 +156,7 @@ export default {
     await this.getProjects();
     console.log("got projects");
     this.loading = false;
+    console.log(process.env.BACKEND_BASE_URL);
   },
   methods: {
     async getTags() {

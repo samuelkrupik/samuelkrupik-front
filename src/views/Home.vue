@@ -265,6 +265,7 @@ import { Navigation, Lazy } from "swiper";
 
 export default {
   name: "Home",
+  title: "Domov",
   components: {
     CNavigation,
     CFooter,

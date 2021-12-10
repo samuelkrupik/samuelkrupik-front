@@ -4,6 +4,7 @@ export default {
   state: {
     authenticated: false,
     user: null,
+    errors: null,
   },
   getters: {
     authenticated(state) {
@@ -12,6 +13,9 @@ export default {
 
     user(state) {
       return state.user;
+    },
+    errors: (state) => (field) => {
+      return state.errors ? state.errors[field] : null;
     },
   },
   mutations: {
@@ -22,31 +26,63 @@ export default {
     SET_USER(state, value) {
       state.user = value;
     },
+    SET_ERRORS(state, errors) {
+      state.errors = errors;
+    },
   },
   actions: {
-    async signIn({ dispatch }, credentials) {
-      await axios.get("sanctum/csrf-cookie");
-      await axios.post("login", credentials);
-
-      return dispatch("user");
+    signIn({ dispatch, commit }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post("login", credentials)
+          .then(() => {
+            resolve(dispatch("user"));
+          })
+          .catch((error) => {
+            if ([422, 401].includes(error.response.status)) {
+              commit("SET_ERRORS", error.response.data.errors);
+              reject(error);
+            }
+            //console.log(error.response.status);
+          });
+      });
+    },
+    async signUp({ dispatch, commit }, credentials) {
+      axios
+        .post("register", credentials)
+        .then(() => {
+          return dispatch("user");
+        })
+        .catch((error) => {
+          if ([422, 401].includes(error.response.status)) {
+            commit("SET_ERRORS", error.response.data.errors);
+          }
+          //console.log(error.response.status);
+        });
     },
     async signOut({ dispatch }) {
       await axios.post("/logout");
 
-      return dispatch("me");
+      return dispatch("user");
     },
 
     user({ commit }) {
-      return axios
-        .get("/api/user")
-        .then((response) => {
-          commit("SET_AUTHENTICATED", true);
-          commit("SET_USER", response.data);
-        })
-        .catch(() => {
-          commit("SET_AUTHENTICATED", false);
-          commit("SET_USER", null);
-        });
+      return new Promise((resolve, reject) => {
+        axios
+          .get("/api/user")
+          .then((response) => {
+            commit("SET_AUTHENTICATED", true);
+            commit("SET_USER", response.data);
+            commit("SET_ERRORS", null);
+            resolve(response);
+          })
+          .catch((error) => {
+            commit("SET_AUTHENTICATED", false);
+            commit("SET_USER", null);
+            commit("SET_ERRORS", error.response);
+            reject(error);
+          });
+      });
     },
   },
 };

@@ -57,6 +57,7 @@ import CNavigation from "@/components/CNavigation";
 import CFooter from "@/components/CFooter.vue";
 
 export default {
+  title: "Kontakt",
   components: {
     CNavigation,
     CFooter,

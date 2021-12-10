@@ -22,12 +22,41 @@
           @click="close"
           >{{ link.title }}</router-link
         >
+        <button
+          class="flex lg:hidden items-center button-primary"
+          v-if="authenticated"
+          @click="handleLogout"
+        >
+          <span>Odhlásiť</span>
+          <logout-icon class="h-6 w-6 ml-2" />
+        </button>
       </div>
     </div>
   </transition>
   <!-- End Overlay -->
   <nav class="flex items-center justify-between py-8">
-    <c-logo class="h-8" />
+    <div class="relative">
+      <router-link to="/">
+        <c-logo class="h-8" @contextmenu.prevent="authOpen" />
+      </router-link>
+      <div
+        v-if="authVisible"
+        class="absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200"
+        v-click-outside="authClose"
+      >
+        <router-link
+          v-for="{ link, text } in [
+            { link: '/login', text: 'Prihlásiť' },
+            { link: '/register', text: 'Registrovať' },
+          ]"
+          :key="link"
+          :to="link"
+          class="font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+        >
+          {{ text }}
+        </router-link>
+      </div>
+    </div>
     <div class="hidden lg:flex md:items-center space-x-10">
       <router-link
         class="nav-link"
@@ -39,7 +68,15 @@
         {{ link.title }}
       </router-link>
     </div>
-    <router-link :to="hireLink" class="hidden lg:flex button-primary"
+    <button
+      class="hidden lg:flex items-center button-primary"
+      v-if="authenticated"
+      @click="handleLogout"
+    >
+      <span>Odhlásiť</span>
+      <logout-icon class="h-6 w-6 ml-2" />
+    </button>
+    <router-link v-else :to="hireLink" class="hidden lg:flex button-primary"
       >Objednať</router-link
     >
     <!-- Hamburger -->
@@ -96,17 +133,25 @@
 
 <script>
 import CLogo from "./CLogo";
+import { mapState } from "vuex";
+import { LogoutIcon } from "@heroicons/vue/outline";
 export default {
   name: "CNavigation",
   components: {
     CLogo,
+    LogoutIcon,
   },
   data() {
     return {
       visible: false,
+      authVisible: false,
     };
   },
   computed: {
+    ...mapState("auth", {
+      user: (state) => state.user,
+      authenticated: (state) => state.authenticated,
+    }),
     hireLink() {
       if (this.$route.name === "Home") {
         return "#contact";
@@ -136,6 +181,9 @@ export default {
     },
   },
   methods: {
+    handleLogout() {
+      this.$store.dispatch("auth/signOut");
+    },
     open() {
       this.visible = true;
       document.body.classList.add("overflow-hidden");
@@ -143,6 +191,12 @@ export default {
     close() {
       this.visible = false;
       document.body.classList.remove("overflow-hidden");
+    },
+    authOpen() {
+      this.authVisible = true;
+    },
+    authClose() {
+      this.authVisible = false;
     },
   },
 };
