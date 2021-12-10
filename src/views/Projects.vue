@@ -93,12 +93,19 @@
           leave-active-class="transition-all duration-300"
         >
           <template v-for="project in projects" :key="project.id">
-            <c-responsive-image
-              :image="project.images[0]"
-              conversion="preview"
-              loading="lazy"
-              class="w-full rounded-xl shadow-xl transform"
-            />
+            <router-link
+              :to="{
+                name: 'Project',
+                params: { id: project.id, slug: project.slug },
+              }"
+            >
+              <c-responsive-image
+                :image="project.images[0]"
+                conversion="preview"
+                loading="lazy"
+                class="w-full rounded-xl shadow-xl transform"
+              />
+            </router-link>
           </template>
         </transition-group>
       </div>
@@ -148,13 +155,11 @@ export default {
   },
   async created() {
     await this.getTags();
-    console.log("got tags");
     this.activeTag =
       this.tags.find((tag) => tag.slug == this.$route.query.tag) ??
       this.tags[0];
     this.searchQuery = this.$route.query.s ?? "";
     await this.getProjects();
-    console.log("got projects");
     this.loading = false;
     console.log(process.env.BACKEND_BASE_URL);
   },

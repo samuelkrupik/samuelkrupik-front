@@ -2,6 +2,7 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
+    project: {},
     projects: [],
     links: [],
     meta: {},
@@ -12,6 +13,9 @@ export default {
     },
   },
   mutations: {
+    SET_PROJECT(state, payload) {
+      state.project = payload.data;
+    },
     SET_DATA(state, payload) {
       state.projects = payload.data;
       state.links = payload.links;
@@ -30,6 +34,14 @@ export default {
         commit("SET_DATA", response.data);
       } catch (e) {
         commit("SET_DATA", []);
+      }
+    },
+    async getProjectById({ commit }, { id, slug }) {
+      try {
+        const response = await axios.get(`/api/projects/${id}/${slug}`);
+        commit("SET_PROJECT", response.data);
+      } catch (e) {
+        commit("SET_PROJECT", {});
       }
     },
     async getMoreProjects({ state, commit }, params) {
