@@ -44,8 +44,12 @@
             quiz prog. Junk MTV quiz graced by fox whelps.
           </p>
           <div class="mt-8 flex items-center">
-            <a href="#" class="button-primary">Kontaktujte ma</a>
-            <a href="#" class="ml-4 link">Viac informácii</a>
+            <router-link to="#contact" class="button-primary"
+              >Kontaktujte ma</router-link
+            >
+            <router-link to="#about" class="ml-4 link"
+              >Viac informácii</router-link
+            >
           </div>
         </div>
         <div class="w-full sm:w-3/4 md:w-1/2 flex items-center">
@@ -76,7 +80,9 @@
             elitr, sed diam nonumy eirmod tempor invidunt.
           </p>
         </div>
-        <a href="#" class="button-primary mt-4">Stiahnuť životopis</a>
+        <a href="#" class="button-primary mt-4" onclick="alert(':)')"
+          >Stiahnuť životopis</a
+        >
       </div>
     </section>
     <!-- End About -->
@@ -154,6 +160,9 @@
         <p class="text-dark font-semibold mt-6">
           The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
           quiz prog. Junk MTV quiz graced by fox whelps.
+          <router-link to="/projekty" class="link">
+            Zobraziť všetky projekty
+          </router-link>
         </p>
       </div>
       <swiper
