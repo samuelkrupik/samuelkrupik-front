@@ -1,11 +1,10 @@
 <template>
   <div id="projects">
     <c-loader :loading="loading" />
-    <section class="section">
-      <c-navigation />
-    </section>
 
-    <section class="section pt-12">
+    <c-navigation />
+
+    <section class="section pt-36">
       <div
         class="text-center px-6 sm:w-2/3 md:w-1/2 md:px-0 mx-auto lg:mx-0 lg:w-2/5 lg:text-left xl:w-1/3"
       >
@@ -100,7 +99,7 @@
               }"
             >
               <c-responsive-image
-                :image="project.images[0]"
+                :image="project.image"
                 conversion="preview"
                 loading="lazy"
                 class="w-full rounded-xl shadow-xl transform"
@@ -125,7 +124,7 @@
 import CNavigation from "@/components/CNavigation.vue";
 import CFooter from "@/components/CFooter.vue";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/vue/solid";
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import CResponsiveImage from "@/components/CResponsiveImage.vue";
 import CLoader from "@/components/CLoader.vue";
 export default {
@@ -147,9 +146,9 @@ export default {
     };
   },
   computed: {
-    ...mapState("projects", {
-      projects: (state) => state.projects,
-      canLoadMore: (state) => state.meta.current_page !== state.meta.last_page,
+    ...mapGetters("projects", {
+      projects: "projects",
+      canLoadMore: "canLoadMore",
     }),
     ...mapGetters("tags", ["tags"]),
   },
@@ -161,7 +160,7 @@ export default {
     this.searchQuery = this.$route.query.s ?? "";
     await this.getProjects();
     this.loading = false;
-    console.log(process.env.BACKEND_BASE_URL);
+    console.log(process.env.VUE_APP_BACKEND);
   },
   methods: {
     async getTags() {

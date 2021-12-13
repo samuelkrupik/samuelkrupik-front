@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <section class="section">
-      <c-navigation />
-    </section>
-    <section class="section md:flex md:mt-12 flex-row-reverse items-center">
+    <c-navigation />
+    <section
+      class="section pt-24 md:flex md:pt-36 flex-row-reverse items-center"
+    >
       <div class="px-20 sm:px-32 md:w-1/2 md:px-0 lg:px-8">
         <img src="../assets/img/contact-form.png" alt="" />
       </div>

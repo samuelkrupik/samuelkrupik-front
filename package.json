@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --mode development",
+    "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "autoprefixer": "^9",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
     "postcss": "^7",
     "swiper": "^7.3.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",

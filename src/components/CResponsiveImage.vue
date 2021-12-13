@@ -24,9 +24,15 @@ export default {
   },
   computed: {
     srcset() {
+      if (!this.image.conversions) {
+        return;
+      }
       return this.image.conversions[this.conversion].srcset;
     },
     url() {
+      if (!this.image.conversions) {
+        return;
+      }
       return this.image.conversions[this.conversion].url;
     },
   },

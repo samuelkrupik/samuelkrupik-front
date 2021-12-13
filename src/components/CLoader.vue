@@ -5,7 +5,8 @@
     leave-active-class="transition-all duration-500"
   >
     <div
-      class="fixed z-50 top-0 left-0 w-screen h-screen bg-white flex flex-col items-center justify-center"
+      style="z-index: 999"
+      class="fixed top-0 left-0 w-screen h-screen bg-white flex flex-col items-center justify-center"
       v-if="loading"
     >
       <svg

@@ -1,6 +1,7 @@
 <template>
-  <div id="projects">
+  <div id="project">
     <c-loader :loading="loading" />
+    <c-navigation />
     <transition
       enter-active-class="transition-all duration-300"
       enter-from-class="opacity-0"
@@ -17,6 +18,7 @@
         class="w-screen h-screen fixed top-0 left-0 z-50 bg-white"
       >
         <swiper
+          v-if="!loading"
           @swiper="onSwiper"
           @navigationHide="gallery.closeVisible = false"
           @navigationShow="gallery.closeVisible = true"
@@ -83,13 +85,20 @@
         />
       </div>
     </transition>
-    <section class="section">
-      <c-navigation />
-    </section>
-
-    <section class="section pt-12">
+    <section class="section pt-36" v-if="!loading">
       <h1 class="heading">{{ project.title }}</h1>
-      <p class="content-text mt-10">{{ project.description }}</p>
+      <div class="mt-10">
+        <p
+          class="content-text mb-2 whitespace-pre-line last:mb-0 leading-relaxed"
+          v-for="(paragraph, index) of project.description.split('\n\n')"
+          v-bind:key="index"
+        >
+          {{ paragraph }}
+        </p>
+      </div>
+      <!-- <p class="content-text mt-10 whitespace-pre-line">
+        {{ project.description }}
+      </p> -->
       <div
         class="flex items-center text-sm text-mid mt-2"
         title="Dátum dokončenia"
@@ -102,30 +111,30 @@
       <div
         class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12"
       >
-        <transition-group
+        <!-- <transition-group
           enter-active-class="transition-all duration-300"
           enter-from-class="opacity-0 scale-95"
           enter-to-class="opacity-100 scale-100"
           leave-from-class="opacity-100 scale-100"
           leave-to-class="opacity-0 scale-95"
           leave-active-class="transition-all duration-300"
-        >
-          <template v-for="(image, index) in project.images" :key="image.id">
-            <div @click="openGallery(index)" class="relative">
-              <c-responsive-image
-                :image="image"
-                conversion="preview"
-                loading="lazy"
-                class="w-full rounded-xl shadow-xl transform overflow-hidden"
-              />
-              <div
-                class="top-0 left-0 bg-white bg-opacity-20 opacity-0 hover:opacity-100 absolute w-full h-full flex items-center justify-center transition-opacity cursor-pointer"
-              >
-                <arrows-expand-icon class="w-10 h-10 text-white" />
-              </div>
+        > -->
+        <template v-for="(image, index) in project.images" :key="image.id">
+          <div @click="openGallery(index)" class="relative">
+            <c-responsive-image
+              :image="image"
+              conversion="preview"
+              loading="lazy"
+              class="w-full rounded-xl shadow-xl transform overflow-hidden"
+            />
+            <div
+              class="top-0 left-0 bg-white bg-opacity-20 opacity-0 hover:opacity-100 absolute w-full h-full flex items-center justify-center transition-opacity cursor-pointer"
+            >
+              <arrows-expand-icon class="w-10 h-10 text-white" />
             </div>
-          </template>
-        </transition-group>
+          </div>
+        </template>
+        <!-- </transition-group> -->
       </div>
     </section>
     <section class="section">
@@ -137,7 +146,7 @@
 <script>
 import CNavigation from "@/components/CNavigation.vue";
 import CFooter from "@/components/CFooter.vue";
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 import CResponsiveImage from "@/components/CResponsiveImage.vue";
 import CLoader from "@/components/CLoader.vue";
 import {
@@ -200,7 +209,7 @@ export default {
     }),
   },
   async created() {
-    await this.getProject({
+    await this.$store.dispatch("projects/getProject", {
       id: this.$route.params.id,
       slug: this.$route.params.slug,
     });
@@ -219,9 +228,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions("projects", {
-      getProject: "getProjectById",
-    }),
     openGallery(slideIndex) {
       this.gallery.isVisible = true;
       this.$nextTick(() => {

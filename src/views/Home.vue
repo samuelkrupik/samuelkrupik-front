@@ -1,5 +1,6 @@
 <template>
   <div class="home relative overflow-hidden">
+    <c-loader :loading="loading" />
     <img
       class="h-40 hidden lg:block absolute left-0 top-1/6 transform -translate-y-96 -translate-x-1/3 scale-75 2xl:scale-100 2xl:translate-y-0"
       src="../assets/img/bg/dots.svg"
@@ -26,11 +27,10 @@
       alt=""
     />
 
-    <section class="section">
-      <c-navigation :links="links" />
-    </section>
+    <c-navigation :links="links" />
+
     <!-- End Nav -->
-    <section class="section" id="home">
+    <section class="section pt-20" id="home">
       <div
         class="flex items-center w-full flex-col-reverse md:flex-row-reverse xl:flex-row"
       >
@@ -165,36 +165,55 @@
         :navigation="swiper.navigation"
         :modules="swiper.modules"
       >
-        <swiper-slide v-for="n in 10" :key="n" class="overflow-visible">
-          <div class="relative">
-            <img
+        <swiper-slide
+          v-for="project in projects"
+          :key="project.id"
+          class="overflow-visible"
+        >
+          <router-link
+            :to="{
+              name: 'Project',
+              params: { id: project.id, slug: project.slug },
+            }"
+          >
+            <div class="relative">
+              <img
+                :data-src="project.image.conversions.preview.url"
+                :data-srcset="project.image.conversions.preview.srcset"
+                :src="project.image.conversions.preview.base64svg"
+                class="swiper-lazy max-h-full max-w-full rounded-xl shadow-squashed-xl"
+              />
+              <!-- <img
               data-src="https://source.unsplash.com/random/1920x1440"
               alt=" "
-              class="swiper-lazy rounded-xl shadow-squashed-xl h-96 w-full object-cover bg-blue-200"
-            />
-            <svg
-              class="swiper-preloader absolute left-1/2 top-1/2 animate-spin h-8 w-8 -ml-4 -mt-4 text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-          </div>
-          <div class="w-full text-right mt-1 text-mid text-sm font-semibold">
-            Toto je popis
+              class="swiper-lazy l h-96 w-full object-cover bg-blue-200"
+            /> -->
+              <svg
+                class="swiper-preloader absolute left-1/2 top-1/2 animate-spin h-8 w-8 -ml-4 -mt-4 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </div>
+          </router-link>
+          <div
+            class="w-full text-right mt-1 pl-10 text-mid text-sm font-semibold truncate"
+          >
+            {{ project.title }}
           </div>
         </swiper-slide>
       </swiper>
@@ -253,6 +272,7 @@
 
 <script>
 // @ is an alias to /src
+import CLoader from "@/components/CLoader.vue";
 import CCard from "../components/CCard";
 import CNavigation from "../components/CNavigation.vue";
 import CFooter from "../components/CFooter.vue";
@@ -262,11 +282,13 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/vue/solid";
 import "swiper/modules/lazy/lazy.scss";
 import "swiper/swiper.scss";
 import { Navigation, Lazy } from "swiper";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
   title: "Domov",
   components: {
+    CLoader,
     CNavigation,
     CFooter,
     Swiper,
@@ -279,6 +301,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       links: [
         {
           title: "Domov",
@@ -327,10 +350,17 @@ export default {
       hash: window.location.hash,
     };
   },
-  created() {
+  computed: {
+    ...mapGetters("projects", {
+      projects: "latestProjects",
+    }),
+  },
+  async created() {
+    await this.$store.dispatch("projects/getLatestProjects");
     window.addEventListener("hashchange", () => {
       this.hash = window.location.hash;
     });
+    this.loading = false;
   },
 };
 </script>
