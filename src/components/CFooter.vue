@@ -10,7 +10,11 @@
     <div class="w-1/2">
       <p class="text-dark font-semibold">Sledujte ma</p>
       <div class="flex items-center space-x-2 mt-2">
-        <a href="#" class="social-icon">
+        <a
+          href="https://github.com/samuelkrupik"
+          target="_blank"
+          class="social-icon"
+        >
           <svg
             class="h-8 w-8"
             xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +73,11 @@
             </g>
           </svg>
         </a>
-        <a href="#" class="social-icon">
+        <a
+          href="https://dribbble.com/samuelkrupik"
+          target="_blank"
+          class="social-icon"
+        >
           <svg
             id="dribbble-ball-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +111,11 @@
             />
           </svg>
         </a>
-        <a href="#" class="social-icon">
+        <a
+          href="https://artstation.com/samuelkrupik"
+          target="_blank"
+          class="social-icon"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-8 w-8"
