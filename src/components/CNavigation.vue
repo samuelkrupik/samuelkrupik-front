@@ -46,7 +46,7 @@
         </router-link>
         <div
           v-if="authVisible"
-          class="absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200"
+          class="bg-white absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200"
           v-click-outside="authClose"
         >
           <router-link
