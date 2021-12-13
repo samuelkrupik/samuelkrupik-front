@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    host: "samuelkrupik.test",
-    port: 80,
+    // host: "samuelkrupik.test",
+    // port: 80,
   },
 };
