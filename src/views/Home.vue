@@ -207,7 +207,7 @@
         <swiper-slide
           v-for="project in projects"
           :key="project.id"
-          class="overflow-visible"
+          class="relative overflow-visible pb-10"
         >
           <router-link
             :to="{
@@ -222,11 +222,6 @@
                 :src="project.image.conversions.preview.base64svg"
                 class="swiper-lazy max-h-full max-w-full rounded-xl shadow-squashed-xl"
               />
-              <!-- <img
-              data-src="https://source.unsplash.com/random/1920x1440"
-              alt=" "
-              class="swiper-lazy l h-96 w-full object-cover bg-blue-200"
-            /> -->
               <svg
                 class="swiper-preloader absolute left-1/2 top-1/2 animate-spin h-8 w-8 -ml-4 -mt-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
@@ -250,13 +245,23 @@
             </div>
           </router-link>
           <div
-            class="w-full text-right mt-1 pl-10 text-mid text-sm font-semibold truncate"
+            class="absolute z-5 right-0 h-10 -mt-9 top-full w-full text-right pl-10 text-mid text-sm font-semibold truncate"
           >
             {{ project.title }}
           </div>
         </swiper-slide>
+        <swiper-slide class="h-auto pb-10">
+          <div
+            class="w-full h-full bg-white bg-opacity-60 rounded-xl flex flex-col items-center pb-8"
+          >
+            <img class="w-2/3" src="../assets/img/rocket.png" alt="" />
+            <router-link to="/projekty" class="button-secondary">
+              Viac projektov
+            </router-link>
+          </div>
+        </swiper-slide>
       </swiper>
-      <div class="w-full flex justify-end mt-4">
+      <div class="w-full flex justify-end">
         <chevron-left-icon
           class="w-12 p-2 text-dark swiper-prev cursor-pointer"
         />
