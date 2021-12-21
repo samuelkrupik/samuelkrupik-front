@@ -30,7 +30,7 @@
           Registrácia
         </button>
         <router-link to="/login" class="link mt-3 sm:mr-4 sm:mt-0"
-          >Už zaregistrovný?</router-link
+          >Už zaregistrovaný?</router-link
         >
       </div>
     </auth-card>
