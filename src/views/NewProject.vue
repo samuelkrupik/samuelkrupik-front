@@ -1,7 +1,16 @@
-<template>create new</template>
+<template>
+  <div id="new-project">
+    <c-navigation />
+  </div>
+</template>
 
 <script>
-export default {};
+import CNavigation from "@/components/CNavigation.vue";
+export default {
+  components: {
+    CNavigation,
+  },
+};
 </script>
 
 <style></style>
