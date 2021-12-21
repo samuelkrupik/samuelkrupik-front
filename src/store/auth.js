@@ -71,12 +71,14 @@ export default {
         axios
           .get("/api/user")
           .then((response) => {
+            localStorage.setItem("authenticated", true);
             commit("SET_AUTHENTICATED", true);
             commit("SET_USER", response.data);
             commit("SET_ERRORS", null);
             resolve(response);
           })
           .catch((error) => {
+            localStorage.setItem("authenticated", false);
             commit("SET_AUTHENTICATED", false);
             commit("SET_USER", null);
             commit("SET_ERRORS", error.response);
