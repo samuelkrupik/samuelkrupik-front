@@ -17,7 +17,7 @@
           Kontaktný formulár
         </h1>
         <p
-          class="text-dark text-center md:text-left font-semibold mb-8 lg:mb-8"
+          class="text-dark text-center md:text-left font-semibold mb-8 lg:mb-16"
         >
           Napíšte mi správu a ja Vám odpíšem hneď, ako to bude možné.
         </p>
