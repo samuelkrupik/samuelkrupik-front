@@ -62,7 +62,10 @@ export default {
   },
   methods: {
     handleRegister() {
-      this.$store.dispatch("auth/signUp", this.register);
+      this.$store
+        .dispatch("auth/signUp", this.register)
+        .then(() => this.$router.replace({ name: "Home" }))
+        .catch(() => {});
     },
   },
 };

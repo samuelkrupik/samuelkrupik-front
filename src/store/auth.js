@@ -17,14 +17,17 @@ export default {
     errors: (state) => (field) => {
       return state.errors ? state.errors[field] : null;
     },
+    getFirstName(state) {
+      return state.user.name.split(" ")[0];
+    },
   },
   mutations: {
     SET_AUTHENTICATED(state, value) {
       state.authenticated = value;
     },
 
-    SET_USER(state, value) {
-      state.user = value;
+    SET_USER(state, payload) {
+      state.user = payload.data;
     },
     SET_ERRORS(state, errors) {
       state.errors = errors;
@@ -43,22 +46,23 @@ export default {
               commit("SET_ERRORS", error.response.data.errors);
               reject(error);
             }
-            //console.log(error.response.status);
           });
       });
     },
-    async signUp({ dispatch, commit }, credentials) {
-      axios
-        .post("register", credentials)
-        .then(() => {
-          return dispatch("user");
-        })
-        .catch((error) => {
-          if ([422, 401].includes(error.response.status)) {
-            commit("SET_ERRORS", error.response.data.errors);
-          }
-          //console.log(error.response.status);
-        });
+    signUp({ dispatch, commit }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post("register", credentials)
+          .then(() => {
+            resolve(dispatch("user"));
+          })
+          .catch((error) => {
+            if ([422, 401].includes(error.response.status)) {
+              commit("SET_ERRORS", error.response.data.errors);
+              reject(error);
+            }
+          });
+      });
     },
     async signOut({ dispatch }) {
       await axios.post("/logout");
