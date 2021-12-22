@@ -35,7 +35,7 @@ const routes = [
       requiresAuth: true,
     },
     component: () =>
-      import(/* webpackChunkName: "projects" */ "../views/NewProject.vue"),
+      import(/* webpackChunkName: "new_project" */ "../views/NewProject.vue"),
   },
   {
     path: "/login",
