@@ -25,9 +25,12 @@ export default {
     SET_AUTHENTICATED(state, value) {
       state.authenticated = value;
     },
-
     SET_USER(state, payload) {
-      state.user = payload.data;
+      if (!payload) {
+        state.user = null;
+      } else {
+        state.user = payload.data;
+      }
     },
     SET_ERRORS(state, errors) {
       state.errors = errors;
