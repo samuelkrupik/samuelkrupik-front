@@ -89,12 +89,19 @@
         <div
           v-if="userMenuVisible"
           v-click-outside="userMenuClose"
-          class="bg-white absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200"
+          class="bg-white absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200 whitespace-nowrap"
         >
+          <router-link
+            to="/vytvorit-projekt"
+            class="flex items-center justify-between font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+          >
+            Vytvoriť projekt
+            <plus-icon class="h-5 w-5 ml-2" />
+          </router-link>
           <a
             href="/odhlasenie"
             @click.prevent="handleLogout"
-            class="flex items-center font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+            class="flex items-center justify-between font-medium text-red-600 px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
           >
             Odhlásiť
             <logout-icon class="h-5 w-5 ml-2" />
@@ -160,7 +167,8 @@
 <script>
 import CLogo from "./CLogo";
 import { mapGetters, mapState } from "vuex";
-import { LogoutIcon, ChevronDownIcon } from "@heroicons/vue/solid";
+import { ChevronDownIcon, PlusIcon } from "@heroicons/vue/solid";
+import { LogoutIcon } from "@heroicons/vue/outline";
 import debounce from "lodash/debounce";
 export default {
   name: "CNavigation",
@@ -168,6 +176,7 @@ export default {
     CLogo,
     LogoutIcon,
     ChevronDownIcon,
+    PlusIcon,
   },
   data() {
     return {
