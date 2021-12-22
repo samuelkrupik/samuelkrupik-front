@@ -109,6 +109,18 @@
         </time>
       </div>
       <div
+        v-if="iframeLoaded"
+        class="rounded-xl overflow-hidden mt-4"
+        v-html="iframe"
+      ></div>
+      <!-- <div v-if="project.id === 19" class="iframe-wrapper mt-12">
+        <iframe
+          src="//www.youtube.com/embed/qAbagrCE19M"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div> -->
+      <div
         class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12"
       >
         <!-- <transition-group
@@ -160,6 +172,7 @@ import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
 import { Navigation, Lazy } from "swiper";
 import "swiper/modules/lazy/lazy.scss";
 import "swiper/swiper.scss";
+import { getIframe } from "../services/youtube";
 export default {
   title: "Projekt",
   components: {
@@ -178,6 +191,8 @@ export default {
   data() {
     return {
       swiperInstance: null,
+      iframe: "",
+      iframeLoaded: false,
       gallery: {
         isVisible: false,
         closeVisible: true,
@@ -213,6 +228,7 @@ export default {
       id: this.$route.params.id,
       slug: this.$route.params.slug,
     });
+    this.setIframe();
     this.loading = false;
   },
   watch: {
@@ -248,6 +264,16 @@ export default {
         day: "numeric",
       };
       return new Date(Date.parse(date)).toLocaleDateString("sk-SK", options);
+    },
+    setIframe() {
+      if (!this.project.video_url) return;
+      const html = getIframe(this.project.video_url);
+      if (!html) {
+        this.iframeLoaded = false;
+        return;
+      }
+      this.iframe = html;
+      this.iframeLoaded = true;
     },
   },
 };

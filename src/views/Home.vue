@@ -40,8 +40,12 @@
             <span class="text-primary whitespace-nowrap">Samuel Krupík</span>
           </h1>
           <p class="content-text mt-8">
-            The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-            quiz prog. Junk MTV quiz graced by fox whelps.
+            Vitajte! Práve si prezeráte moju osobnú stránku. Som grafický
+            <span class="font-bold">dizajnér</span> a webový
+            <span class="font-bold">vývojár</span>. Neváhajte si pozrieť moju
+            prácu.
+            <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
+            quiz prog. Junk MTV quiz graced by fox whelps. -->
           </p>
           <div class="mt-8 flex items-center">
             <router-link to="#contact" class="button-primary"
@@ -69,15 +73,25 @@
         <h1 class="heading">O Mne</h1>
         <div>
           <p class="content-text mt-6">
-            Lorem ipsum dolor sit amet,
-            <span class="font-bold">consetetur sadipscing</span> elitr, sed diam
+            Moje meno je Samuel Krupík, vyštudoval som digitálny grafický dizajn
+            a momentálne študujem odbor
+            <span class="font-bold">Multimediálne technológie</span> na
+            <a href="https://feit.uniza.sk/" class="link"
+              >Žilinskej Univerzite.</a
+            >
+            <!-- <span class="font-bold">consetetur sadipscing</span> elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua.
+            erat, sed diam voluptua. -->
           </p>
           <p class="content-text mt-4">
-            Lorem ipsum
+            Grafickému dizajnu a vývoji webstránok sa venujem už viac ako 5
+            rokov. Mojim cieľom je nájsť čo
+            <span class="font-bold">najjednoduchšie</span> a
+            <span class="font-bold">najelegantnejšie</span> riešenie problému so
+            zachovaním pôvodnej myšlienky.
+            <!-- Lorem ipsum
             <span class="font-bold">dolor sit amet,</span> consetetur sadipscing
-            elitr, sed diam nonumy eirmod tempor invidunt.
+            elitr, sed diam nonumy eirmod tempor invidunt. -->
           </p>
         </div>
         <a href="#" class="button-primary mt-4" onclick="alert(':)')"
@@ -90,8 +104,10 @@
       <div class="mt-20">
         <h1 class="heading">Moje služby</h1>
         <p class="content-text mt-6">
-          The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-          quiz prog. Junk MTV quiz graced by fox whelps.
+          Vyberte si z mojej ponuky služieb. Každá práca je spracovaná
+          profesionálne s maximálnym citom pre detail.
+          <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
+          quiz prog. Junk MTV quiz graced by fox whelps. -->
         </p>
       </div>
       <div class="grid sm:grid-cols-2 gap-5 lg:grid-cols-3 xl:gap-12 py-12">
@@ -101,8 +117,10 @@
           :link="{ path: '/projekty', query: { tag: 'ui_ux' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
-          dolore!
+          Kvalitný a použiteľný dizajn pre obrazovky patrí v dnešnej dobe k
+          základom úspechu.
+          <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
+          dolore! -->
         </c-card>
         <c-card
           heading="3D Dizajn"
@@ -110,8 +128,10 @@
           :link="{ path: '/projekty', query: { tag: '3d_dizajn' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea quis
-          dolore quos?
+          Chcete sa odlíšiť od konkurencie? S moderným 3D dizajnom sa Vám to
+          určite podarí.
+          <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea quis
+          dolore quos? -->
         </c-card>
         <c-card
           heading="Webstránky"
@@ -119,8 +139,10 @@
           :link="{ path: '/projekty', query: { tag: 'web' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi at est
-          officiis!
+          Ešte nemáte svoju webstránku? Ponúkam vám kompletné riešenia od návrhu
+          až po nasadenie na server.
+          <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi at est
+          officiis! -->
         </c-card>
         <c-card
           heading="Videotvorba"
@@ -128,8 +150,10 @@
           :link="{ path: '/projekty', query: { tag: 'video' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-          ratione?
+          Potrebujete odprezentovať vašu firmu či produkt? Pomocou videa si
+          získate vašich zákazníkov.
+          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
+          ratione? -->
         </c-card>
         <c-card
           heading="Branding"
@@ -137,8 +161,10 @@
           :link="{ path: '/projekty', query: { tag: 'branding' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque
-          nihil!
+          Zakladáte nový biznis a ešte nemáte vybudovanú firemnú identitu? Poďme
+          to spolu zmeniť.
+          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque
+          nihil! -->
         </c-card>
         <c-card
           heading="Tlačoviny"
@@ -146,7 +172,9 @@
           :link="{ path: '/projekty', query: { tag: 'tlac' } }"
           link-text="Zobraziť projekty"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repell!
+          &bdquo;Tlačové média sú mŕtve!&ldquo; nepovedal nikdy nikto. Veď kto
+          by nechcel mať vizitku.
+          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Repell! -->
         </c-card>
       </div>
     </section>
@@ -158,11 +186,13 @@
           Posledné projekty
         </h1>
         <p class="text-dark font-semibold mt-6">
-          The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-          quiz prog. Junk MTV quiz graced by fox whelps.
-          <router-link to="/projekty" class="link">
-            Zobraziť všetky projekty
-          </router-link>
+          Pozrite si moje posledné projekty. Ak tu nenájdete to, čo hľadáte,
+          pozrite si
+          <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
+          quiz prog. Junk MTV quiz graced by fox whelps. -->
+          <router-link to="/projekty" class="link">všetky projekty</router-link>
+          alebo ma
+          <router-link to="#contact" class="link"> kontaktujte. </router-link>
         </p>
       </div>
       <swiper
@@ -177,7 +207,7 @@
         <swiper-slide
           v-for="project in projects"
           :key="project.id"
-          class="overflow-visible"
+          class="relative overflow-visible pb-10"
         >
           <router-link
             :to="{
@@ -192,11 +222,6 @@
                 :src="project.image.conversions.preview.base64svg"
                 class="swiper-lazy max-h-full max-w-full rounded-xl shadow-squashed-xl"
               />
-              <!-- <img
-              data-src="https://source.unsplash.com/random/1920x1440"
-              alt=" "
-              class="swiper-lazy l h-96 w-full object-cover bg-blue-200"
-            /> -->
               <svg
                 class="swiper-preloader absolute left-1/2 top-1/2 animate-spin h-8 w-8 -ml-4 -mt-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
@@ -220,13 +245,23 @@
             </div>
           </router-link>
           <div
-            class="w-full text-right mt-1 pl-10 text-mid text-sm font-semibold truncate"
+            class="absolute z-5 right-0 h-10 -mt-9 top-full w-full text-right pl-10 text-mid text-sm font-semibold truncate"
           >
             {{ project.title }}
           </div>
         </swiper-slide>
+        <swiper-slide class="h-auto pb-10">
+          <div
+            class="w-full h-full bg-white bg-opacity-60 rounded-xl flex flex-col items-center pb-8"
+          >
+            <img class="w-2/3" src="../assets/img/rocket.png" alt="" />
+            <router-link to="/projekty" class="button-secondary">
+              Viac projektov
+            </router-link>
+          </div>
+        </swiper-slide>
       </swiper>
-      <div class="w-full flex justify-end mt-4">
+      <div class="w-full flex justify-end">
         <chevron-left-icon
           class="w-12 p-2 text-dark swiper-prev cursor-pointer"
         />

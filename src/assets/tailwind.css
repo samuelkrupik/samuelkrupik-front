@@ -4,61 +4,74 @@
 
 @tailwind utilities;
 
-
 @layer components {
-    /**
+  /**
      * Position relative and z-index 0 assigned because of stacking context
      * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
     */
-    .button-primary {
-        @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
-    }
+  .button-primary {
+    @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-primary bg-gradient-to-b from-primary to-secondary text-white font-semibold shadow-secondary-xl transform hover:scale-105 hover:shadow-secondary-2xl transition-all duration-200 ease-in-out;
+  }
 
-    .button-secondary {
-        @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
-    }
+  .button-secondary {
+    @apply relative z-0 inline-block px-6 py-2.5 rounded-2xl bg-white text-tertiary font-semibold shadow-tertiary-xl transform hover:scale-105 hover:shadow-tertiary-2xl transition-all duration-200 ease-in-out;
+  }
 
-    .section {
-        @apply max-w-7xl mx-auto px-6 lg:px-10;
-    }
+  .section {
+    @apply max-w-7xl mx-auto px-6 lg:px-10;
+  }
 
-    .heading {
-        @apply font-heading text-4xl xs:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-dark;
-    }
+  .heading {
+    @apply font-heading text-4xl xs:text-5xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-dark;
+  }
 
-    .content-text {
-        @apply text-dark font-semibold;
-    }
+  .content-text {
+    @apply text-dark font-semibold;
+  }
 
-    .link {
-        @apply underline font-semibold text-dark;
-    }
+  .link {
+    @apply underline font-semibold text-dark;
+  }
 
-    .social-icon {
-        @apply relative z-0 p-3 rounded-2xl shadow-lg max-w-max hover:shadow-xl transform hover:scale-105 transition-all;
-    }
+  .social-icon {
+    @apply relative z-0 p-3 rounded-2xl shadow-lg max-w-max hover:shadow-xl transform hover:scale-105 transition-all;
+  }
 
-    .input {
-        @apply px-4 py-3 rounded-lg shadow-xl border border-gray-100;
-    }
+  .input {
+    @apply px-4 py-3 rounded-lg shadow-xl border border-gray-100;
+  }
 
-    .nav-link {
-        @apply font-semibold text-dark p-2 text-xl lg:text-base relative;
-    }
+  .nav-link {
+    @apply font-semibold text-dark p-2 text-xl lg:text-base relative;
+  }
 
-    .nav-link:after {
-        content: "";
-        @apply absolute bg-primary h-full w-1 rounded lg:w-full lg:h-1 -left-4 lg:left-0 top-0 lg:top-full transform scale-y-75 lg:scale-y-100 lg:-translate-y-full transition-all origin-left scale-x-0;
-    }
+  .nav-link:after {
+    content: "";
+    @apply absolute bg-primary h-full w-1 rounded lg:w-full lg:h-1 -left-4 lg:left-0 top-0 lg:top-full transform scale-y-75 lg:scale-y-100 lg:-translate-y-full transition-all origin-left scale-x-0;
+  }
 
-    .nav-link:hover:after {
-        content: "";
-        @apply scale-x-100 opacity-100;
-    }
+  .nav-link:hover:after {
+    content: "";
+    @apply scale-x-100 opacity-100;
+  }
 
-    .nav-link-active:after {
-        content: "";
-        @apply scale-x-100 opacity-80;
-    }
+  .nav-link-active:after {
+    content: "";
+    @apply scale-x-100 opacity-80;
+  }
 
+  .iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+
+  .iframe-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
 }

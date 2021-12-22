@@ -73,14 +73,41 @@
           {{ link.title }}
         </router-link>
       </div>
-      <button
-        class="hidden lg:flex items-center button-primary"
-        v-if="authenticated"
-        @click="handleLogout"
-      >
-        <span>Odhlásiť</span>
-        <logout-icon class="h-6 w-6 ml-2" />
-      </button>
+      <div class="hidden lg:flex relative" v-if="authenticated">
+        <div
+          @click.stop="userMenuToggle"
+          class="flex items-center cursor-pointer"
+        >
+          <img
+            :src="user.avatar"
+            :alt="user.name"
+            class="w-8 rounded-full shadow"
+          />
+          <span class="ml-2 font-medium">{{ getFirstName }}</span>
+          <chevron-down-icon class="h-5 w-5 ml-1" />
+        </div>
+        <div
+          v-if="userMenuVisible"
+          v-click-outside="userMenuClose"
+          class="bg-white absolute top-full mt-2 flex flex-col p-1 rounded-lg shadow border border-gray-200 whitespace-nowrap"
+        >
+          <router-link
+            to="/vytvorit-projekt"
+            class="flex items-center justify-between font-medium text-dark px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+          >
+            Vytvoriť projekt
+            <plus-icon class="h-5 w-5 ml-2" />
+          </router-link>
+          <a
+            href="/odhlasenie"
+            @click.prevent="handleLogout"
+            class="flex items-center justify-between font-medium text-red-600 px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+          >
+            Odhlásiť
+            <logout-icon class="h-5 w-5 ml-2" />
+          </a>
+        </div>
+      </div>
       <router-link v-else :to="hireLink" class="hidden lg:flex button-primary"
         >Objednať</router-link
       >
@@ -139,7 +166,8 @@
 
 <script>
 import CLogo from "./CLogo";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
+import { ChevronDownIcon, PlusIcon } from "@heroicons/vue/solid";
 import { LogoutIcon } from "@heroicons/vue/outline";
 import debounce from "lodash/debounce";
 export default {
@@ -147,15 +175,19 @@ export default {
   components: {
     CLogo,
     LogoutIcon,
+    ChevronDownIcon,
+    PlusIcon,
   },
   data() {
     return {
       visible: false,
       authVisible: false,
+      userMenuVisible: false,
       prevScrollpos: 0,
     };
   },
   computed: {
+    ...mapGetters("auth", ["getFirstName"]),
     ...mapState("auth", {
       user: (state) => state.user,
       authenticated: (state) => state.authenticated,
@@ -214,6 +246,12 @@ export default {
     },
     authClose() {
       this.authVisible = false;
+    },
+    userMenuToggle() {
+      this.userMenuVisible = !this.userMenuVisible;
+    },
+    userMenuClose() {
+      this.userMenuVisible = false;
     },
     handleScroll() {
       const styleClasses = ["bg-white", "shadow-xl"];

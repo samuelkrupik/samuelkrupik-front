@@ -1,10 +1,9 @@
 <template>
-  <main class="px-6 min-h-screen flex flex-col items-center justify-center">
+  <div id="login">
     <c-loader :loading="loading" />
-    <c-logo class="h-10" />
-    <div
-      class="w-full sm:w-96 px-4 py-8 mt-8 bg-white shadow-md rounded-xl border border-gray-100"
-    >
+    <c-navigation />
+
+    <auth-card>
       <div class="">
         <auth-label for="email">Email</auth-label>
         <auth-input
@@ -34,24 +33,26 @@
           >Ešte nemáte učet?</router-link
         >
       </div>
-    </div>
-  </main>
+    </auth-card>
+  </div>
 </template>
 
 <script>
-import CLogo from "@/components/CLogo.vue";
 import AuthInput from "@/components/auth/Input.vue";
 import AuthLabel from "@/components/auth/Label.vue";
 import CLoader from "@/components/CLoader.vue";
+import CNavigation from "@/components/CNavigation.vue";
 import { mapGetters } from "vuex";
+import AuthCard from "@/components/auth/AuthCard.vue";
 
 export default {
   title: "Prihlásenie",
   components: {
-    CLogo,
     AuthInput,
     AuthLabel,
     CLoader,
+    CNavigation,
+    AuthCard,
   },
   data() {
     return {

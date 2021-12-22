@@ -13,9 +13,15 @@
         class="md:w-1/2"
         @submit.prevent="onSubmit"
       >
-        <h1 class="heading mb-8 text-center md:text-left lg:mb-12">
+        <h1 class="heading text-center md:text-left mb-2">
           Kontaktný formulár
         </h1>
+        <p
+          class="text-dark text-center md:text-left font-semibold mb-8 lg:mb-16"
+        >
+          Napíšte mi správu a ja Vám odpíšem hneď, ako to bude možné.
+        </p>
+
         <div class="flex flex-col mb-6">
           <label for="email" class="content-text mb-2">Váš email</label>
           <input

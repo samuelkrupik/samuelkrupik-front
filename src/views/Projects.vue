@@ -6,16 +6,20 @@
 
     <section class="section pt-36">
       <div
-        class="text-center px-6 sm:w-2/3 md:w-1/2 md:px-0 mx-auto lg:mx-0 lg:w-2/5 lg:text-left xl:w-1/3"
+        class="text-center px-6 md:w-2/3 md:px-0 mx-auto lg:mx-0 lg:w-2/5 lg:text-left xl:w-1/2"
       >
         <h1 class="heading text-primary">Porfólio</h1>
         <p class="content-text">
-          The quick, brown fox jumps over a prog
-          <a href="#" class="link">github</a>. Junk MTV by
-          <a href="#" class="link">dribbble</a> fox whelps.
+          Tu nájdete moje projekty, ak by ste si chceli pozrieť viac, možte tak
+          urobiť kliknutím na
+          <!-- The quick, brown fox jumps over a prog -->
+          <a href="#" class="link">dribbble.</a>
+          Ak vás zaujímajú zdrojové kódy niektorých mojich projektov, môžte sa
+          pozrieť na môj
+          <a href="#" class="link">github.</a>
         </p>
       </div>
-      <div class="lg:w-1/2 mx-auto lg:-mt-24">
+      <div class="lg:w-1/2 mx-auto lg:-mt-12">
         <div class="px-10 sm:w-2/3 sm:px-0 md:w-1/2 mx-auto lg:w-3/4">
           <img src="../assets/img/projects.png" alt="" />
         </div>

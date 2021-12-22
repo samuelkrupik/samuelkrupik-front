@@ -4,6 +4,7 @@
       <input
         :id="id"
         :value="modelValue"
+        :placeholder="placeholder"
         :class="{ 'border-red-600': errors != null }"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
@@ -33,6 +34,7 @@
     </div>
     <input
       v-else
+      :placeholder="placeholder"
       :id="id"
       :value="modelValue"
       :class="{ 'border-red-600': errors != null }"
@@ -61,7 +63,7 @@ export default {
     EyeIcon,
     EyeOffIcon,
   },
-  props: ["modelValue", "type", "errors", "id"],
+  props: ["modelValue", "type", "errors", "id", "placeholder"],
   emits: ["update:modelValue"],
   methods: {
     toggle() {
