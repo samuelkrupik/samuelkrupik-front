@@ -55,12 +55,13 @@
       </div>
       <div class="mb-4">
         <c-label for="files">Galéria</c-label>
-        <label
+        <c-file-upload />
+        <!-- <label
           class="block px-4 py-2 rounded-lg bg-white w-full shadow-sm border border-gray-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 focus:outline-none focus:border-blue-400"
         >
           <span class="mt-2 text-base leading-normal">{{ filesLabel }}</span>
           <input type="file" multiple class="hidden" id="files" />
-        </label>
+        </label> -->
       </div>
       <div class="flex justify-end">
         <button class="button-primary">Pridať projekt</button>
@@ -78,6 +79,7 @@ import CInput from "@/components/auth/Input.vue";
 import CLabel from "@/components/auth/Label.vue";
 import CTextArea from "@/components/auth/TextArea.vue";
 import CFooter from "@/components/CFooter.vue";
+import CFileUpload from "@/components/CFileUpload.vue";
 export default {
   components: {
     RefreshIcon,
@@ -86,6 +88,7 @@ export default {
     CLabel,
     CTextArea,
     CFooter,
+    CFileUpload,
   },
   data() {
     return {
