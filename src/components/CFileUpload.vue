@@ -67,6 +67,12 @@ export default {
     console.log(this.formData);
   },
   methods: {
+    isAcceptedType(type) {
+      if (type.match(this.acceptedMimes.join("|"))) {
+        return true;
+      }
+      return false;
+    },
     dragOver(event) {
       event.target.classList.add(...this.activeClasses);
     },
@@ -89,6 +95,9 @@ export default {
       document.getElementById("files").click();
     },
     addFile(file) {
+      if (!this.isAcceptedType(file.type)) {
+        return;
+      }
       const reader = new FileReader();
       reader.onload = () => {
         const newFile = { file: file, dataUrl: reader.result };
