@@ -90,7 +90,7 @@ export default class ImageUploader {
           } else {
             this.state.status = "rejected";
           }
-          this.state.message = error.message;
+          this.state.message = error.response.data.message;
           reject();
         });
 
