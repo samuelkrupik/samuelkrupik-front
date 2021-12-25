@@ -249,7 +249,7 @@
             </div>
           </transition-group>
           <div
-            class="flex flex-col items-center justify-center py-6 shadow rounded-md bg-gray-50 text-gray-600 hover:text-blue-600 transition-colors"
+            class="flex flex-col items-center justify-center py-6 shadow rounded-md bg-gray-50 text-blue-500 hover:text-blue-600 transition-colors"
           >
             <plus-circle-icon class="w-8 h-8 mt-2" />
             <span class="font-semibold">Pridať</span>
