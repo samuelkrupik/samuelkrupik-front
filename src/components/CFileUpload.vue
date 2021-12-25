@@ -225,7 +225,7 @@
                   <svg
                     @click.stop="removeFile(index)"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
+                    class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded cursor-pointer transition-colors"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -517,7 +517,7 @@ export default {
       if (!this.isAcceptedType(file.type)) {
         return;
       }
-      let image = new ImageUploader(file, this.files);
+      let image = new ImageUploader(file, this.files, "api/upload");
       image.enqueue();
     },
 
@@ -541,6 +541,7 @@ export default {
      * @param index Index suboru v poli files
      */
     removeFile(index) {
+      this.files[index].delete();
       this.files.splice(index, 1);
     },
   },
