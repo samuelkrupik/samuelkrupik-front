@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-1">
     <!-- Preview container -->
     <div
       v-if="showPreview"
@@ -73,7 +73,10 @@
               </div>
               <!-- File status -->
               <div class="px-2 py-3">
-                <p class="text-gray-700 font-semibold truncate">
+                <p
+                  class="text-gray-700 font-semibold truncate"
+                  :title="file.file.name"
+                >
                   {{ file.file.name }}
                 </p>
                 <div class="flex items-center text-sm">
@@ -278,7 +281,7 @@
     </div>
     <!-- End drop area -->
     <input
-      id="files"
+      :id="id"
       @change="filesAdded($event)"
       hidden
       name="files"
@@ -302,6 +305,7 @@ import {
 
 export default {
   name: "CFileUpload",
+  props: ["id"],
   components: {
     CheckCircleIcon,
     ExclamationIcon,

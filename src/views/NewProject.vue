@@ -55,7 +55,7 @@
       </div>
       <div class="mb-4">
         <c-label for="files">Galéria</c-label>
-        <c-file-upload />
+        <c-file-upload id="files" />
         <!-- <label
           class="block px-4 py-2 rounded-lg bg-white w-full shadow-sm border border-gray-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 focus:outline-none focus:border-blue-400"
         >
