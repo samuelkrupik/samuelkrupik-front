@@ -55,7 +55,11 @@
       </div>
       <div class="mb-4">
         <c-label for="files">Galéria</c-label>
-        <c-file-upload id="files" />
+        <c-file-upload
+          id="files"
+          v-model:allUploaded="uploadStatus.allUploaded"
+          v-model:uploadedIds="uploadStatus.uploadedIds"
+        />
         <!-- <label
           class="block px-4 py-2 rounded-lg bg-white w-full shadow-sm border border-gray-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 focus:outline-none focus:border-blue-400"
         >
@@ -98,6 +102,10 @@ export default {
       title: "",
       slug: "",
       slugChanged: false,
+      uploadStatus: {
+        allUploaded: true,
+        uploadedIds: "",
+      },
     };
   },
   watch: {

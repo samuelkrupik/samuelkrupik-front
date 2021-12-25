@@ -79,9 +79,10 @@ export default class ImageUploader {
       };
       axios
         .post("/api/upload", formData, config)
-        .then(() => {
+        .then((response) => {
           this.state.status = "uploaded";
-          resolve();
+          this.state.uploadedId = response.data.id;
+          resolve(response.data);
         })
         .catch((error) => {
           if (error.message === "canceled") {

@@ -289,6 +289,8 @@
       multiple
       :accept="acceptedMimes.join()"
     />
+    <input type="hidden" :value="uploadedIds" />
+    <input type="hidden" :value="allUploaded" />
   </div>
 </template>
 
@@ -305,7 +307,8 @@ import {
 
 export default {
   name: "CFileUpload",
-  props: ["id"],
+  props: ["id", "uploadedIds", "allUploaded"],
+  emits: ["update:uploadedIds", "update:allUploaded"],
   components: {
     CheckCircleIcon,
     ExclamationIcon,
@@ -337,11 +340,32 @@ export default {
   },
   watch: {
     /**
-     * Sleduje dĺžku queue -> kontroluje nahrávanie
+     * Sleduje dĺžku queue -> kontroluje nahrávanie a posiela udaje rodičovi cez $emit
      */
     queueLength(length) {
+      this.$emit("update:uploadedIds", this.getUploadedIds());
       if (length > 0 && !this.isUploading) {
         this.uploadNext();
+      }
+    },
+
+    /**
+     * Sleduje či sa nahrávaju subory -> posiela udaje rodicovi
+     */
+    isUploading(uploading) {
+      if (uploading) {
+        this.$emit("update:allUploaded", true);
+      } else {
+        this.$emit("update:allUploaded", false);
+      }
+    },
+
+    /**
+     * Sleduje dlžku pola files -> ak sa zmenší, prepocita id-cka nahraných suborov
+     */
+    filesLength(newLength, oldLength) {
+      if (newLength < oldLength) {
+        this.$emit("update:uploadedIds", this.getUploadedIds());
       }
     },
   },
@@ -371,8 +395,26 @@ export default {
         .filter((file) => file.queued)
         .sort((a, b) => a.queueOrder - b.queueOrder);
     },
+
+    /**
+     * Vráti dlžku pola files
+     */
+    filesLength() {
+      return this.files.length;
+    },
   },
   methods: {
+    /**
+     * Získa id všetkých uploadnutých obrazkov
+     */
+    getUploadedIds() {
+      let ids = [];
+      this.files.forEach((file) =>
+        file.status === "uploaded" ? ids.push(file.uploadedId) : null
+      );
+      return ids.join(",");
+    },
+
     /**
      * Zobrazí obrázok na celú obrazovku
      * @param dataUrl url s dátami obrázku
@@ -485,7 +527,12 @@ export default {
     uploadNext() {
       const image = this.queue[0];
       if (image.status !== "uploading") {
-        image.upload().finally(() => image.dequeue());
+        image
+          .upload()
+          // .then((uploaded) => {
+          //   this.uploadedIds += uploaded.id;
+          // })
+          .finally(() => image.dequeue());
       }
     },
 
