@@ -47,34 +47,42 @@
           v-if="files.length > 0"
           class="grid gap-4 p-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
         >
-          <div
-            v-for="(file, index) in files"
-            :key="index"
-            class="relative shadow rounded-md bg-gray-50 opacity-80 hover:opacity-100 group transition-opacity cursor-pointer overflow-hidden"
-            @click.stop="showImage(file.dataUrl)"
+          <transition-group
+            enter-active-class="transition-all duration-300"
+            enter-from-class="opacity-0 scale-95"
+            enter-to-class="opacity-100 scale-100"
+            leave-from-class="opacity-100 scale-100"
+            leave-to-class="opacity-0 scale-95"
+            leave-active-class="transition-all duration-300"
           >
-            <!-- Thumbnail -->
-            <div class="w-full h-24 rounded-md overflow-hidden">
-              <img
-                :src="
-                  file.dataUrl ?? '../assets/img/misc/upload_placeholder.png'
-                "
-                :alt="file.file.name"
-                class="h-full w-full object-cover"
-              />
-            </div>
-            <!-- File status -->
-            <div class="px-2 py-3">
-              <p class="text-gray-700 font-semibold truncate">
-                {{ file.file.name }}
-              </p>
-              <div class="flex items-center text-sm">
-                <div
-                  v-if="file.status == 'queued'"
-                  class="flex items-center text-gray-600"
-                >
-                  <clock-icon class="h-5 w-5 mr-1" />
-                  <!-- <svg
+            <div
+              v-for="(file, index) in files"
+              :key="index"
+              class="transform relative shadow rounded-md bg-gray-50 opacity-80 hover:opacity-100 group transition-opacity cursor-pointer overflow-hidden"
+              @click.stop="showImage(file.dataUrl)"
+            >
+              <!-- Thumbnail -->
+              <div class="w-full h-24 rounded-md overflow-hidden">
+                <img
+                  :src="
+                    file.dataUrl ?? '../assets/img/misc/upload_placeholder.png'
+                  "
+                  :alt="file.file.name"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <!-- File status -->
+              <div class="px-2 py-3">
+                <p class="text-gray-700 font-semibold truncate">
+                  {{ file.file.name }}
+                </p>
+                <div class="flex items-center text-sm">
+                  <div
+                    v-if="file.status == 'queued'"
+                    class="flex items-center text-gray-600"
+                  >
+                    <clock-icon class="h-5 w-5 mr-1" />
+                    <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-1"
                 viewBox="0 0 20 20"
@@ -86,14 +94,14 @@
                   clip-rule="evenodd"
                 />
               </svg> -->
-                  <span>V poradí</span>
-                </div>
-                <div
-                  v-if="file.status == 'uploading'"
-                  class="flex items-center text-gray-700"
-                >
-                  <arrow-circle-up-icon class="h-5 w-5 mr-1" />
-                  <!-- <svg
+                    <span>V poradí</span>
+                  </div>
+                  <div
+                    v-if="file.status == 'uploading'"
+                    class="flex items-center text-gray-700"
+                  >
+                    <arrow-circle-up-icon class="h-5 w-5 mr-1" />
+                    <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-1"
                 viewBox="0 0 20 20"
@@ -105,14 +113,14 @@
                   clip-rule="evenodd"
                 />
               </svg> -->
-                  <span>Nahrávanie</span>
-                </div>
-                <div
-                  v-if="file.status == 'canceled'"
-                  class="flex items-center text-yellow-600"
-                >
-                  <exclamation-icon class="h-5 w-5 mr-1" />
-                  <!-- <svg
+                    <span>Nahrávanie</span>
+                  </div>
+                  <div
+                    v-if="file.status == 'canceled'"
+                    class="flex items-center text-yellow-600"
+                  >
+                    <exclamation-icon class="h-5 w-5 mr-1" />
+                    <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-1"
                 viewBox="0 0 20 20"
@@ -124,15 +132,15 @@
                   clip-rule="evenodd"
                 />
               </svg> -->
-                  <span>Zrušené</span>
-                </div>
-                <div
-                  v-if="file.status == 'rejected'"
-                  class="flex items-center text-red-600"
-                  :title="file.message"
-                >
-                  <exclamation-circle-icon class="h-5 w-5 mr-1" />
-                  <!-- <svg
+                    <span>Zrušené</span>
+                  </div>
+                  <div
+                    v-if="file.status == 'rejected'"
+                    class="flex items-center text-red-600"
+                    :title="file.message"
+                  >
+                    <exclamation-circle-icon class="h-5 w-5 mr-1" />
+                    <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-1"
                 viewBox="0 0 20 20"
@@ -144,14 +152,14 @@
                   clip-rule="evenodd"
                 />
               </svg> -->
-                  <span>Chyba</span>
-                </div>
-                <div
-                  v-if="file.status == 'uploaded'"
-                  class="flex items-center text-green-500"
-                >
-                  <check-circle-icon class="h-5 w-5 mr-1" />
-                  <!-- <svg
+                    <span>Chyba</span>
+                  </div>
+                  <div
+                    v-if="file.status == 'uploaded'"
+                    class="flex items-center text-green-500"
+                  >
+                    <check-circle-icon class="h-5 w-5 mr-1" />
+                    <!-- <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-1"
                 viewBox="0 0 20 20"
@@ -163,81 +171,82 @@
                   clip-rule="evenodd"
                 />
               </svg> -->
-                  <span>Dokončené</span>
+                    <span>Dokončené</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Remove/cancel -->
-            <div
-              class="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <template v-if="file.status === 'uploading'">
-                <svg
-                  @click.stop="file.cancelUpload()"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="bg-yellow-50 text-yellow-600 hover:bg-yellow-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <title>Zastaviť</title>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </template>
-              <template
-                v-else-if="
-                  file.status === 'canceled' || file.status === 'rejected'
-                "
+              <!-- Remove/cancel -->
+              <div
+                class="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity"
               >
-                <svg
-                  @click.stop="file.enqueue()"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <template v-if="file.status === 'uploading'">
+                  <svg
+                    @click.stop="file.cancelUpload()"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bg-yellow-50 text-yellow-600 hover:bg-yellow-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <title>Zastaviť</title>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </template>
+                <template
+                  v-else-if="
+                    file.status === 'canceled' || file.status === 'rejected'
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-              </template>
-              <template v-else>
-                <svg
-                  @click.stop="removeFile(index)"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <title>Odobrať</title>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </template>
+                  <svg
+                    @click.stop="file.enqueue()"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </template>
+                <template v-else>
+                  <svg
+                    @click.stop="removeFile(index)"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="bg-red-50 text-red-600 hover:bg-red-100 h-8 w-8 p-1 rounded-md cursor-pointer transition-colors"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <title>Odobrať</title>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </template>
+              </div>
+              <!-- Progress bar -->
+              <div
+                v-if="file.status === 'uploading'"
+                class="absolute bottom-0 left-0 h-1 bg-blue-600 animate-pulse rounded-full"
+                :style="{ width: file.uploadProgress + '%' }"
+              ></div>
             </div>
-            <!-- Progress bar -->
-            <div
-              v-if="file.status === 'uploading'"
-              class="absolute bottom-0 left-0 h-1 bg-blue-600 animate-pulse rounded-full"
-              :style="{ width: file.uploadProgress + '%' }"
-            ></div>
-          </div>
+          </transition-group>
           <div
-            class="flex flex-col items-center justify-center shadow rounded-md bg-gray-50 text-gray-600 hover:text-blue-600 transition-colors"
+            class="flex flex-col items-center justify-center py-6 shadow rounded-md bg-gray-50 text-gray-600 hover:text-blue-600 transition-colors"
           >
             <plus-circle-icon class="w-8 h-8 mt-2" />
             <span class="font-semibold">Pridať</span>
