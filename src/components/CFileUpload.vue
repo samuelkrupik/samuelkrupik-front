@@ -393,11 +393,17 @@ export default {
      * Nastaví class-y na drop container
      */
     dragOver(event) {
-      event.target.classList.add(...this.$options.activeClasses);
+      event.target
+        .closest("#drop-container")
+        .classList.add(...this.$options.activeClasses);
       Array.from(event.dataTransfer.items).forEach((item) => {
         if (!this.isAcceptedType(item.type)) {
-          event.target.classList.remove(...this.$options.activeClasses);
-          event.target.classList.add(...this.$options.errorClasses);
+          event.target
+            .closest("#drop-container")
+            .classList.remove(...this.$options.activeClasses);
+          event.target
+            .closest("#drop-container")
+            .classList.add(...this.$options.errorClasses);
         }
       });
     },
@@ -407,10 +413,12 @@ export default {
      * @param event Event dragleave ($event)
      */
     dragLeave(event) {
-      event.target.classList.remove(
-        ...this.$options.activeClasses,
-        ...this.$options.errorClasses
-      );
+      event.target
+        .closest("#drop-container")
+        .classList.remove(
+          ...this.$options.activeClasses,
+          ...this.$options.errorClasses
+        );
     },
 
     /**
@@ -418,10 +426,12 @@ export default {
      * @param event Event drop ($event)
      */
     drop(event) {
-      event.target.classList.remove(
-        ...this.$options.activeClasses,
-        ...this.$options.errorClasses
-      );
+      event.target
+        .closest("#drop-container")
+        .classList.remove(
+          ...this.$options.activeClasses,
+          ...this.$options.errorClasses
+        );
       Array.from(event.dataTransfer.items).forEach((item) => {
         this.addFile(item.getAsFile());
       });
