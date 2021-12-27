@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 import auth from "./auth";
 import projects from "./projects";
 import tags from "./tags";
+import notifications from "./notifications";
 
 export default createStore({
   state: {
@@ -27,5 +28,6 @@ export default createStore({
     auth,
     projects,
     tags,
+    notifications,
   },
 });

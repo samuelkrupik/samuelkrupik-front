@@ -76,8 +76,17 @@ export default {
     async onSubmit() {
       this.$store
         .dispatch("auth/signIn", this.login)
-        .then(() => this.$router.replace({ name: "Home" }))
-        .catch(() => {});
+        .then(() => {
+          this.$notify.success("Prihlásenie prebehlo úspešne");
+          this.$router.replace({ name: "Home" });
+        })
+        .catch(() => {
+          this.$notify.error(
+            "Prihlásenie bolo neúspešné",
+            "Skúste znova zadať správne prihlasovacie údaje",
+            50000
+          );
+        });
     },
   },
 };

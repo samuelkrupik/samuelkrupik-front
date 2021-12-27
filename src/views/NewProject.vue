@@ -177,13 +177,22 @@ export default {
     },
     createProject() {
       if (!this.uploadStatus.allUploaded) {
-        alert("Nahrávanie prebieha...");
+        this.$notify.warning("Prebieha nahrávanie", "Počkajte prosím...");
         return;
       }
       this.$store
         .dispatch("projects/createProject", this.projectData)
-        .then(() => this.$router.replace({ name: "Projects" }))
-        .catch(() => {});
+        .then(() => {
+          this.$notify.success("Projekt bol pridaný!", null, 7500);
+          this.$router.replace({ name: "Projects" });
+        })
+        .catch(() => {
+          this.$notify.error(
+            "Pri pridávaní projeku nastala chyba!",
+            "Skontrolujte údaje a skúste to znova prosím...",
+            7500
+          );
+        });
     },
   },
 };

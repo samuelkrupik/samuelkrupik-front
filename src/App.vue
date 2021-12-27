@@ -1,8 +1,18 @@
 <template>
   <div class="bg-blurred min-h-screen">
     <router-view />
+    <c-notification-list />
   </div>
 </template>
+
+<script>
+import CNotificationList from "@/components/CNotificationList.vue";
+export default {
+  components: {
+    CNotificationList,
+  },
+};
+</script>
 
 <style lang="css">
 .bg-blurred {
