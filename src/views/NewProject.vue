@@ -8,6 +8,7 @@
         <c-input
           id="title"
           v-model="title"
+          :errors="errors('title')"
           type="text"
           placeholder="Názov projektu"
         />
@@ -18,6 +19,7 @@
           <c-input
             id="slug"
             v-model="slug"
+            :errors="errors('slug')"
             @keyup="slugChanged = true"
             type="text"
             placeholder="nazov-projektu"
@@ -30,11 +32,21 @@
         </div>
       </div>
       <div class="mb-4">
+        <c-label for="finish_date">Dátum dokončenia</c-label>
+        <c-input
+          id="finish_date"
+          v-model="finish_date"
+          :errors="errors('finish_date')"
+          type="date"
+        />
+      </div>
+      <div class="mb-4">
         <c-label for="description">Popis</c-label>
         <c-text-area
           id="description"
           rows="7"
           v-model="description"
+          :errors="errors('description')"
           placeholder="Popis projektu..."
         />
       </div>
@@ -42,9 +54,11 @@
         <c-label for="url">Youtube video link</c-label>
         <c-input
           id="url"
-          v-model="url"
+          v-model="video_url"
+          :errors="errors('video_url')"
           @change="setIframe"
           type="url"
+          pattern="https://www.youtube.com/watch?v=*"
           placeholder="https://www.youtube.com/watch?v=videoid"
         />
         <div
@@ -57,6 +71,7 @@
         <c-label for="files">Galéria</c-label>
         <c-file-upload
           id="files"
+          :errors="errors('images')"
           v-model:allUploaded="uploadStatus.allUploaded"
           v-model:uploadedIds="uploadStatus.uploadedIds"
         />
@@ -68,7 +83,9 @@
         </label> -->
       </div>
       <div class="flex justify-end">
-        <button class="button-primary">Pridať projekt</button>
+        <button class="button-primary" @click.prevent="createProject">
+          Pridať projekt
+        </button>
       </div>
       <c-footer class="mt-24" />
     </section>
@@ -84,6 +101,7 @@ import CLabel from "@/components/auth/Label.vue";
 import CTextArea from "@/components/auth/TextArea.vue";
 import CFooter from "@/components/CFooter.vue";
 import CFileUpload from "@/components/CFileUpload.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     RefreshIcon,
@@ -96,16 +114,18 @@ export default {
   },
   data() {
     return {
-      url: "",
-      iframe: "",
-      iframeLoaded: false,
       title: "",
       slug: "",
-      slugChanged: false,
+      description: "",
+      finish_date: "2021-1-1",
+      video_url: "",
       uploadStatus: {
         allUploaded: true,
         uploadedIds: "",
       },
+      iframe: "",
+      iframeLoaded: false,
+      slugChanged: false,
     };
   },
   watch: {
@@ -116,6 +136,17 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["errors"]),
+    projectData() {
+      return {
+        title: this.title,
+        slug: this.slug,
+        finish_date: this.finish_date,
+        description: this.description,
+        video_url: this.video_url,
+        images: this.uploadStatus.uploadedIds,
+      };
+    },
     filesLabel() {
       let label = "Vyberte súbory";
       const fileEl = document.getElementById("files");
@@ -136,13 +167,23 @@ export default {
       this.slugChanged = false;
     },
     setIframe() {
-      const html = getIframe(this.url);
+      const html = getIframe(this.video_url);
       if (!html) {
         this.iframeLoaded = false;
         return;
       }
       this.iframe = html;
       this.iframeLoaded = true;
+    },
+    createProject() {
+      if (!this.uploadStatus.allUploaded) {
+        alert("Nahrávanie prebieha...");
+        return;
+      }
+      this.$store
+        .dispatch("projects/createProject", this.projectData)
+        .then(() => this.$router.replace({ name: "Projects" }))
+        .catch(() => {});
     },
   },
 };

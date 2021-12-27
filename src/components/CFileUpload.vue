@@ -35,6 +35,7 @@
       <div
         id="drop-container"
         tabindex="0"
+        :class="{ 'border-red-600': errors != null }"
         class="rounded-lg bg-white shadow-sm border border-gray-300 hover:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 focus:outline-none focus:border-blue-400 cursor-pointer"
         @dragover.prevent="dragOver($event)"
         @dragleave.prevent="dragLeave($event)"
@@ -280,6 +281,12 @@
       </div>
     </div>
     <!-- End drop area -->
+    <ul
+      v-if="errors != null"
+      class="mt-1 text-red-600 text-xs font-medium list-disc pl-4"
+    >
+      <li v-for="error in errors" :key="error">{{ error }}</li>
+    </ul>
     <input
       :id="id"
       @change="filesAdded($event)"
@@ -307,7 +314,7 @@ import {
 
 export default {
   name: "CFileUpload",
-  props: ["id", "uploadedIds", "allUploaded"],
+  props: ["id", "uploadedIds", "allUploaded", "errors"],
   emits: ["update:uploadedIds", "update:allUploaded"],
   components: {
     CheckCircleIcon,
@@ -354,9 +361,9 @@ export default {
      */
     isUploading(uploading) {
       if (uploading) {
-        this.$emit("update:allUploaded", true);
-      } else {
         this.$emit("update:allUploaded", false);
+      } else {
+        this.$emit("update:allUploaded", true);
       }
     },
 

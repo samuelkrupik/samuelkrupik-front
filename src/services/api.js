@@ -67,7 +67,7 @@ export default class ImageUploader {
     return new Promise((resolve, reject) => {
       this.state.controller = new AbortController();
       let formData = new FormData();
-      formData.append("file", this.state.file);
+      formData.append("image", this.state.file);
       const config = {
         onUploadProgress: (progress) => {
           const percentCompleted = Math.round(
