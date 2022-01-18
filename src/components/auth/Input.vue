@@ -36,6 +36,7 @@
       v-else
       :placeholder="placeholder"
       :id="id"
+      :type="type"
       :value="modelValue"
       :class="{ 'border-red-600': errors != null }"
       @input="$emit('update:modelValue', $event.target.value)"

@@ -3,11 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
-import api from "./services/api";
 import clickOutside from "./services/click-outside";
 import titleMixin from "./mixins/titleMixin";
 import axios from "axios";
 import slugify from "slugify";
+import notify from "./services/notify";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_BACKEND;
 axios.defaults.headers["X-Requested-With"] = "XMLHttpRequest";
@@ -18,8 +18,8 @@ const app = createApp(App);
 
 store.dispatch("auth/user").catch((e) => console.log(e.response.data.message));
 
-app.config.globalProperties.$api = api;
 app.config.globalProperties.$slug = slugify;
+app.config.globalProperties.$notify = notify;
 app
   .directive("click-outside", clickOutside)
   .use(VueScrollTo)

@@ -7,6 +7,7 @@ export default {
     projects: [],
     links: [],
     meta: {},
+    errors: null,
   },
   getters: {
     canLoadMore(state) {
@@ -38,6 +39,21 @@ export default {
     },
   },
   actions: {
+    createProject({ dispatch, commit }, params) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post("api/projects", params)
+          .then((response) => {
+            commit("SET_ERRORS", null, { root: true });
+            dispatch("getProjects");
+            resolve(response.data);
+          })
+          .catch((error) => {
+            reject(error);
+            commit("SET_ERRORS", error.response.data.errors, { root: true });
+          });
+      });
+    },
     async getLatestProjects({ commit }) {
       try {
         const response = await axios.get(

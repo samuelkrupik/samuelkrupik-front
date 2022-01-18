@@ -3,10 +3,22 @@ import { createStore } from "vuex";
 import auth from "./auth";
 import projects from "./projects";
 import tags from "./tags";
+import notifications from "./notifications";
 
 export default createStore({
-  state: {},
-  mutations: {},
+  state: {
+    errors: null,
+  },
+  mutations: {
+    SET_ERRORS(state, errors) {
+      state.errors = errors;
+    },
+  },
+  getters: {
+    errors: (state) => (field) => {
+      return state.errors ? state.errors[field] : null;
+    },
+  },
   actions: {
     async csrfCookie() {
       return await axios.get("/sanctum/csrf-cookie");
@@ -16,5 +28,6 @@ export default createStore({
     auth,
     projects,
     tags,
+    notifications,
   },
 });
