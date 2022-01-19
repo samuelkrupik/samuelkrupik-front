@@ -118,12 +118,6 @@
           v-model:allUploaded="uploadStatus.allUploaded"
           v-model:uploadedIds="uploadStatus.uploadedIds"
         />
-        <!-- <label
-          class="block px-4 py-2 rounded-lg bg-white w-full shadow-sm border border-gray-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 focus:outline-none focus:border-blue-400"
-        >
-          <span class="mt-2 text-base leading-normal">{{ filesLabel }}</span>
-          <input type="file" multiple class="hidden" id="files" />
-        </label> -->
       </div>
       <div class="flex justify-end">
         <button class="button-primary" @click.prevent="createProject">
@@ -241,7 +235,6 @@ export default {
     },
     deselectTag(tag) {
       tag.selected = false;
-      //this.tags = this.selectedTags.filter((tag) => tag.id != id);
     },
     fetchTags() {
       axios.get("/api/tags").then((res) => {

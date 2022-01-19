@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" @keyup.enter="onSubmit">
     <c-loader :loading="loading" />
     <c-navigation />
 
@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+      this.loading = true;
       this.$store
         .dispatch("auth/signIn", this.login)
         .then(() => {
@@ -81,10 +82,11 @@ export default {
           this.$router.replace({ name: "Home" });
         })
         .catch(() => {
+          this.loading = false;
           this.$notify.error(
             "Prihlásenie bolo neúspešné",
             "Skúste znova zadať správne prihlasovacie údaje",
-            50000
+            5000
           );
         });
     },

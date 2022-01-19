@@ -44,8 +44,6 @@
             <span class="font-bold">dizajnér</span> a webový
             <span class="font-bold">vývojár</span>. Neváhajte si pozrieť moju
             prácu.
-            <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-            quiz prog. Junk MTV quiz graced by fox whelps. -->
           </p>
           <div class="mt-8 flex items-center">
             <router-link to="#contact" class="button-primary"
@@ -79,9 +77,6 @@
             <a href="https://feit.uniza.sk/" class="link"
               >Žilinskej Univerzite.</a
             >
-            <!-- <span class="font-bold">consetetur sadipscing</span> elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. -->
           </p>
           <p class="content-text mt-4">
             Grafickému dizajnu a vývoji webstránok sa venujem už viac ako 5
@@ -89,9 +84,6 @@
             <span class="font-bold">najjednoduchšie</span> a
             <span class="font-bold">najelegantnejšie</span> riešenie problému so
             zachovaním pôvodnej myšlienky.
-            <!-- Lorem ipsum
-            <span class="font-bold">dolor sit amet,</span> consetetur sadipscing
-            elitr, sed diam nonumy eirmod tempor invidunt. -->
           </p>
         </div>
         <a href="#" class="button-primary mt-4" onclick="alert(':)')"
@@ -106,8 +98,6 @@
         <p class="content-text mt-6">
           Vyberte si z mojej ponuky služieb. Každá práca je spracovaná
           profesionálne s maximálnym citom pre detail.
-          <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-          quiz prog. Junk MTV quiz graced by fox whelps. -->
         </p>
       </div>
       <div class="grid sm:grid-cols-2 gap-5 lg:grid-cols-3 xl:gap-12 py-12">
@@ -119,8 +109,6 @@
         >
           Kvalitný a použiteľný dizajn pre obrazovky patrí v dnešnej dobe k
           základom úspechu.
-          <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
-          dolore! -->
         </c-card>
         <c-card
           heading="3D Dizajn"
@@ -130,8 +118,6 @@
         >
           Chcete sa odlíšiť od konkurencie? S moderným 3D dizajnom sa Vám to
           určite podarí.
-          <!-- Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea quis
-          dolore quos? -->
         </c-card>
         <c-card
           heading="Webstránky"
@@ -141,8 +127,6 @@
         >
           Ešte nemáte svoju webstránku? Ponúkam vám kompletné riešenia od návrhu
           až po nasadenie na server.
-          <!-- Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi at est
-          officiis! -->
         </c-card>
         <c-card
           heading="Videotvorba"
@@ -152,8 +136,6 @@
         >
           Potrebujete odprezentovať vašu firmu či produkt? Pomocou videa si
           získate vašich zákazníkov.
-          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-          ratione? -->
         </c-card>
         <c-card
           heading="Branding"
@@ -163,8 +145,6 @@
         >
           Zakladáte nový biznis a ešte nemáte vybudovanú firemnú identitu? Poďme
           to spolu zmeniť.
-          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos eaque
-          nihil! -->
         </c-card>
         <c-card
           heading="Tlačoviny"
@@ -174,7 +154,6 @@
         >
           &bdquo;Tlačové média sú mŕtve!&ldquo; nepovedal nikdy nikto. Veď kto
           by nechcel mať vizitku.
-          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Repell! -->
         </c-card>
       </div>
     </section>
@@ -188,8 +167,6 @@
         <p class="text-dark font-semibold mt-6">
           Pozrite si moje posledné projekty. Ak tu nenájdete to, čo hľadáte,
           pozrite si
-          <!-- The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax
-          quiz prog. Junk MTV quiz graced by fox whelps. -->
           <router-link to="/projekty" class="link">všetky projekty</router-link>
           alebo ma
           <router-link to="#contact" class="link"> kontaktujte. </router-link>
