@@ -90,11 +90,10 @@
       <div class="mt-10">
         <p
           class="content-text mb-2 whitespace-pre-line last:mb-0 leading-relaxed"
-          v-for="(paragraph, index) of project.description.split('\n\n')"
+          v-for="(paragraph, index) of paragraphs"
           v-bind:key="index"
-        >
-          {{ paragraph }}
-        </p>
+          v-html="paragraph"
+        ></p>
       </div>
       <!-- <p class="content-text mt-10 whitespace-pre-line">
         {{ project.description }}
@@ -173,6 +172,7 @@ import { Navigation, Lazy } from "swiper";
 import "swiper/modules/lazy/lazy.scss";
 import "swiper/swiper.scss";
 import { getIframe } from "../services/youtube";
+import { linkify } from "../services/linkify";
 export default {
   title: "Projekt",
   components: {
@@ -222,6 +222,11 @@ export default {
     ...mapState("projects", {
       project: (state) => state.project,
     }),
+    paragraphs() {
+      return this.project.description
+        .split("\n\n")
+        .map((p) => linkify(p, { target: "_blank" }));
+    },
   },
   async created() {
     await this.$store.dispatch("projects/getProject", {
