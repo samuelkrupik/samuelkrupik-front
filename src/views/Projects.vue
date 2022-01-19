@@ -12,7 +12,6 @@
         <p class="content-text">
           Tu nájdete moje projekty, ak by ste si chceli pozrieť viac, možte tak
           urobiť kliknutím na
-          <!-- The quick, brown fox jumps over a prog -->
           <a href="#" class="link">dribbble.</a>
           Ak vás zaujímajú zdrojové kódy niektorých mojich projektov, môžte sa
           pozrieť na môj
